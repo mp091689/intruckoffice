@@ -8,6 +8,10 @@ COPY . .
 
 RUN composer install --no-interaction --optimize-autoloader --no-dev
 
+RUN cp .env.example .env
+
+RUN php artisan key:generate
+
 RUN php artisan optimize
 
 RUN chown -R application:application .
