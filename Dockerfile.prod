@@ -4,11 +4,9 @@ ENV WEB_DOCUMENT_ROOT=/app/public
 
 WORKDIR /app
 
-COPY composer.json composer.lock
+COPY . .
 
 RUN composer install --no-interaction --optimize-autoloader --no-dev
-
-COPY . .
 
 RUN php artisan optimize
 
