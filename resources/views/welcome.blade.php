@@ -45,7 +45,6 @@
                     <li>DB_PORT {{ $DB_PORT }}</li>
                     <li>DB_USERNAME {{ $DB_USERNAME }}</li>
                     <li>DB_PASSWORD {{ Str::limit($DB_PASSWORD, 5) }}</li>
-                    <li>testenv {{ $testenv }}</li>
                 </ul>
 
                 <div class="mt-16">
