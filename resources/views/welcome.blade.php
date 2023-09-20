@@ -40,11 +40,11 @@
                 </div>
 
                 <ul class="dark:text-white">
-                    <li>DB_CONNECTION {{ $DB_CONNECTION }}</li>
-                    <li>DB_HOST {{ Str::limit($DB_HOST, 5) }}</li>
-                    <li>DB_PORT {{ $DB_PORT }}</li>
-                    <li>DB_USERNAME {{ $DB_USERNAME }}</li>
-                    <li>DB_PASSWORD {{ Str::limit($DB_PASSWORD, 5) }}</li>
+                    <li>DB_CONNECTION: {{ $DB_CONNECTION }}</li>
+                    <li>DB_HOST: {{ Str::limit($DB_HOST, 5) }}</li>
+                    <li>DB_PORT: {{ $DB_PORT }}</li>
+                    <li>DB_USERNAME: {{ $DB_USERNAME }}</li>
+                    <li>DB_PASSWORD: {{ Str::limit($DB_PASSWORD, 5) }}</li>
                 </ul>
 
                 <div class="mt-16">
