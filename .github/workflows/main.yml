@@ -26,8 +26,22 @@
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
         env:
+          APP_DEBUG: ${{ env.APP_DEBUG }}
+          APP_ENV: ${{ env.APP_ENV }}
+          APP_NAME: ${{ env.APP_NAME }}
+          APP_URL: ${{ env.APP_URL }}
+          LOG_CHANNEL: ${{ env.LOG_CHANNEL }}
+          LOG_DEPRECATIONS_CHANNEL: ${{ env.LOG_DEPRECATIONS_CHANNEL }}
+          LOG_LEVEL: ${{ env.LOG_LEVEL }}
+          APP_KEY: ${{ secrets.APP_KEY }}
+          DB_CONNECTION: ${{ secrets.DB_CONNECTION }}
+          DB_DATABASE: ${{ secrets.DB_DATABASE }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: intruckoffice
+          ECR_REPOSITORY: ${{ secrets.AWS_ECR_CONTAINER }}
           IMAGE_TAG: latest
         run: |
           docker build --file Dockerfile.prod -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
