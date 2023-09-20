@@ -10,6 +10,8 @@ RUN composer install --no-interaction --optimize-autoloader --no-dev
 
 RUN cp .env.example .env
 
+RUN echo echo ${DB_PASSWORD}
+
 RUN php artisan key:generate
 
 RUN php artisan optimize
