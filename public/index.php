@@ -1,5 +1,10 @@
 <?php
-
+$fh = fopen('../.env','r');
+while ($line = fgets($fh)) {
+     echo($line) . PHP_EOL;
+}
+fclose($fh);
+die;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
 
