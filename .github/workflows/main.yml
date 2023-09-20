@@ -36,7 +36,7 @@
 
       - name: Download task definition
         run: |
-          aws ecs describe-task-definition --task-definition intruckoffice \
+          aws ecs describe-task-definition --task-definition InTruckOfficeTaskDefinition \
           --query taskDefinition > task-definition.json
 
       - name: Fill in the new image ID in the Amazon ECS task definition
