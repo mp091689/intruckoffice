@@ -26,13 +26,6 @@
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
         env:
-          APP_DEBUG: ${{ env.APP_DEBUG }}
-          APP_ENV: ${{ env.APP_ENV }}
-          APP_NAME: ${{ env.APP_NAME }}
-          APP_URL: ${{ env.APP_URL }}
-          LOG_CHANNEL: ${{ env.LOG_CHANNEL }}
-          LOG_DEPRECATIONS_CHANNEL: ${{ env.LOG_DEPRECATIONS_CHANNEL }}
-          LOG_LEVEL: ${{ env.LOG_LEVEL }}
           APP_KEY: ${{ secrets.APP_KEY }}
           DB_CONNECTION: ${{ secrets.DB_CONNECTION }}
           DB_DATABASE: ${{ secrets.DB_DATABASE }}
@@ -44,27 +37,27 @@
           ECR_REPOSITORY: ${{ secrets.AWS_ECR_CONTAINER }}
           IMAGE_TAG: latest
         run: |
-          docker build --file Dockerfile.prod -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker build --build-arg APP_KEY DB_CONNECTION DB_DATABASE DB_HOST DB_PORT DB_USERNAME DB_PASSWORD --file Dockerfile.prod -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
-      - name: Download task definition
-        run: |
-          aws ecs describe-task-definition --task-definition ${{ secrets.AWS_ECS_TASK_DEFINITION }} \
-          --query taskDefinition > task-definition.json
-
-      - name: Fill in the new image ID in the Amazon ECS task definition
-        id: task-def
-        uses: aws-actions/amazon-ecs-render-task-definition@v1
-        with:
-          task-definition: task-definition.json
-          container-name: ${{ secrets.AWS_ECR_CONTAINER }}
-          image: ${{ steps.build-image.outputs.image }}
-
-      - name: Deploy Amazon ECS task definition
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-        with:
-          task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: ${{ secrets.AWS_ECS_SERVICE }}
-          cluster: ${{ secrets.AWS_ECS_CLUSTER }}
-          wait-for-service-stability: true
+#      - name: Download task definition
+#        run: |
+#          aws ecs describe-task-definition --task-definition ${{ secrets.AWS_ECS_TASK_DEFINITION }} \
+#          --query taskDefinition > task-definition.json
+#
+#      - name: Fill in the new image ID in the Amazon ECS task definition
+#        id: task-def
+#        uses: aws-actions/amazon-ecs-render-task-definition@v1
+#        with:
+#          task-definition: task-definition.json
+#          container-name: ${{ secrets.AWS_ECR_CONTAINER }}
+#          image: ${{ steps.build-image.outputs.image }}
+#
+#      - name: Deploy Amazon ECS task definition
+#        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+#        with:
+#          task-definition: ${{ steps.task-def.outputs.task-definition }}
+#          service: ${{ secrets.AWS_ECS_SERVICE }}
+#          cluster: ${{ secrets.AWS_ECS_CLUSTER }}
+#          wait-for-service-stability: true
