@@ -26,29 +26,17 @@
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
         env:
-          APP_KEY: ${{ secrets.APP_KEY }}
-          DB_CONNECTION: ${{ secrets.DB_CONNECTION }}
-          DB_DATABASE: ${{ secrets.DB_DATABASE }}
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          DB_PORT: ${{ secrets.DB_PORT }}
-          DB_USERNAME: ${{ secrets.DB_USERNAME }}
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{ secrets.AWS_ECR_CONTAINER }}
           IMAGE_TAG: latest
         run: |
-          echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-          echo "APP_KEY: $APP_KEY"
-          echo "DB_CONNECTION: $DB_CONNECTION"
-          echo "DB_DATABASE: $DB_DATABASE"
-          echo "DB_HOST: $DB_HOST"
-          docker build --build-arg APP_KEY \
-                      --build-arg DB_CONNECTION \
-                      --build-arg DB_DATABASE \
-                      --build-arg DB_HOST \
-                      --build-arg DB_PORT \
-                      --build-arg DB_USERNAME \
-                      --build-arg DB_PASSWORD \
+          docker build --build-arg APP_KEY=${{ secrets.APP_KEY }} \
+                      --build-arg DB_CONNECTION=${{ secrets.DB_CONNECTION }} \
+                      --build-arg DB_DATABASE=${{ secrets.DB_DATABASE }} \
+                      --build-arg DB_HOST=${{ secrets.DB_HOST }} \
+                      --build-arg DB_PORT=${{ secrets.DB_PORT }} \
+                      --build-arg DB_USERNAME=${{ secrets.DB_USERNAME }} \
+                      --build-arg DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
                       --file Dockerfile.prod \
                       -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
