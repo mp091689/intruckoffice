@@ -22,9 +22,9 @@ RUN --mount=type=secret,id=AWS_RDS_ENDPOINT \
     export DB_DATABASE=$(cat /run/secrets/AWS_RDS_DB) && \
     export DB_USERNAME=$(cat /run/secrets/AWS_RDS_USER) && \
     export DB_PASSWORD=$(cat /run/secrets/AWS_RDS_PASSWORD) && \
-    sed -i~ '/^DB_HOST=/s/=.*/=${DB_HOST}/' .env && \
-    sed -i~ '/^DB_DATABASE=/s/=.*/=${DB_DATABASE}/' .env && \
-    sed -i~ '/^DB_USERNAME=/s/=.*/=${DB_USERNAME}/' .env && \
-    sed -i~ '/^DB_PASSWORD=/s/=.*/=${DB_PASSWORD}/' .env
+    sed -i~ '/^DB_HOST=/s/=.*/="/${DB_HOST}"/' .env && \
+    sed -i~ '/^DB_DATABASE=/s/=.*/="/${DB_DATABASE}"/' .env && \
+    sed -i~ '/^DB_USERNAME=/s/=.*/="/${DB_USERNAME}"/' .env && \
+    sed -i~ '/^DB_PASSWORD=/s/=.*/="/${DB_PASSWORD}"/' .env
 
 RUN chown -R application:application .
