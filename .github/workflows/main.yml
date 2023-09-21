@@ -37,7 +37,10 @@
           tags: ${{ steps.get-image-name.outputs.image }}
           provenance: false
           secrets: |
-            "DB_PASSWORD=${{ secrets.DB_PASSWORD }}"
+            "AWS_RDS_DB=${{ secrets.AWS_RDS_DB }}"
+            "AWS_RDS_ENDPOINT=${{ secrets.AWS_RDS_ENDPOINT }}"
+            "AWS_RDS_USER=${{ secrets.AWS_RDS_USER }}"
+            "AWS_RDS_PASSWORD=${{ secrets.AWS_RDS_PASSWORD }}"
 
       - name: Download task definition
         run: |

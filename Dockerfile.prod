@@ -12,8 +12,19 @@ RUN cp .env.example .env
 
 RUN php artisan key:generate
 
-RUN --mount=type=secret,id=DB_PASSWORD cat /run/secrets/DB_PASSWORD >> .env
-
 RUN php artisan optimize
+
+RUN --mount=type=secret,id=AWS_RDS_ENDPOINT \
+    --mount=type=secret,id=AWS_RDS_DB \
+    --mount=type=secret,id=AWS_RDS_USER \
+    --mount=type=secret,id=AWS_RDS_PASSWORD \
+    export DB_HOST=$(cat /run/secrets/AWS_RDS_ENDPOINT) && \
+    export DB_DATABASE=$(cat /run/secrets/AWS_RDS_DB) && \
+    export DB_USERNAME=$(cat /run/secrets/AWS_RDS_USER) && \
+    export DB_PASSWORD=$(cat /run/secrets/AWS_RDS_PASSWORD) && \
+    echo "DB_HOST=${DB_HOST}" >> .env
+    echo "DB_DATABASE=${DB_DATABASE}" >> .env
+    echo "DB_USERNAME=${DB_USERNAME}" >> .env
+    echo "DB_PASSWORD=${DB_PASSWORD}" >> .env
 
 RUN chown -R application:application .
