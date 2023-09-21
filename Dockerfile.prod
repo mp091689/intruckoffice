@@ -8,8 +8,8 @@ COPY . .
 
 RUN composer install --no-interaction --optimize-autoloader --no-dev
 
-RUN --mount=type=secret,id=DB_PASSWORD
-ENV DB_PASSWORD=$(cat /run/secrets/DB_PASSWORD)
+RUN --mount=type=secret,id=DB_PASSWORD \
+    cat /run/secrets/DB_PASSWORD
 
 RUN cp .env.example .env
 RUN echo ${DB_PASSWORD} >> .env
