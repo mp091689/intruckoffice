@@ -35,8 +35,6 @@
           file: ./Dockerfile.prod
           push: true
           tags: ${{ steps.get-image-name.outputs.image }}
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache
           provenance: false
           secrets: |
             "DB_PASSWORD=${{ secrets.DB_PASSWORD }}"
