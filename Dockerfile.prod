@@ -8,9 +8,11 @@ COPY . .
 
 RUN composer install --no-interaction --optimize-autoloader --no-dev
 
-RUN cp .env.example .env
+RUN --mount=type=secret,id=DB_PASSWORD
+ENV DB_PASSWORD=$(cat /run/secrets/DB_PASSWORD)
 
-RUN echo echo ${DB_PASSWORD}
+RUN cp .env.example .env
+RUN echo ${DB_PASSWORD} >> .env
 
 RUN php artisan key:generate
 
