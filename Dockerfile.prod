@@ -10,10 +10,10 @@ RUN composer install --no-interaction --optimize-autoloader --no-dev
 
 RUN cp .env.example .env
 
+RUN php artisan key:generate
+
 RUN --mount=type=secret,id=DB_PASSWORD \
     cat /run/secrets/DB_PASSWORD >> .env
-
-RUN php artisan key:generate
 
 RUN php artisan optimize
 
