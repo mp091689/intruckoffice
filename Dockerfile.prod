@@ -10,10 +10,6 @@ RUN composer install --no-interaction --optimize-autoloader --no-dev
 
 RUN cp .env.example .env
 
-RUN php artisan key:generate
-
-RUN php artisan optimize
-
 RUN --mount=type=secret,id=AWS_RDS_ENDPOINT \
     --mount=type=secret,id=AWS_RDS_DB \
     --mount=type=secret,id=AWS_RDS_USER \
@@ -26,5 +22,11 @@ RUN --mount=type=secret,id=AWS_RDS_ENDPOINT \
     sed -i~ "/^DB_DATABASE=/s/=.*/=${DB_DATABASE}/" .env && \
     sed -i~ "/^DB_USERNAME=/s/=.*/=${DB_USERNAME}/" .env && \
     sed -i~ "/^DB_PASSWORD=/s/=.*/=${DB_PASSWORD}/" .env
+
+RUN php artisan key:generate
+
+RUN php artisan optimize
+
+RUN php artisan config:clear
 
 RUN chown -R application:application .
