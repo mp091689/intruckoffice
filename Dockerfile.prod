@@ -4,6 +4,8 @@ ENV WEB_DOCUMENT_ROOT=/app/public
 
 WORKDIR /app
 
+RUN apk add --update mysql mysql-client && rm -f /var/cache/apk/*
+
 COPY . .
 
 RUN composer install --no-interaction --optimize-autoloader --no-dev
