@@ -6,6 +6,8 @@ WORKDIR /app
 
 RUN apk add --update npm
 
+RUN npm install && npm run build
+
 RUN apk add --update mysql mysql-client && rm -f /var/cache/apk/*
 
 COPY . .
