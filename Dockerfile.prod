@@ -39,4 +39,4 @@ RUN chown -R application:application .
 
 RUN chmod +x docker-entrypoint.sh
 
-ENTRYPOINT ["./docker-entrypoint.sh"]
+CMD /app/docker-entrypoint.sh
