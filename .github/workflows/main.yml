@@ -42,23 +42,23 @@
             "AWS_RDS_USER=${{ secrets.AWS_RDS_USER }}"
             "AWS_RDS_PASSWORD=${{ secrets.AWS_RDS_PASSWORD }}"
 
-      - name: Download task definition
-        run: |
-          aws ecs describe-task-definition --task-definition ${{ secrets.AWS_ECS_TASK_DEFINITION }} \
-          --query taskDefinition > task-definition.json
-
-      - name: Fill in the new image ID in the Amazon ECS task definition
-        id: task-def
-        uses: aws-actions/amazon-ecs-render-task-definition@v1
-        with:
-          task-definition: task-definition.json
-          container-name: ${{ secrets.AWS_ECR_CONTAINER }}
-          image: ${{ steps.get-image-name.outputs.image }}
-
-      - name: Deploy Amazon ECS task definition
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-        with:
-          task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: ${{ secrets.AWS_ECS_SERVICE }}
-          cluster: ${{ secrets.AWS_ECS_CLUSTER }}
-          wait-for-service-stability: true
+#      - name: Download task definition
+#        run: |
+#          aws ecs describe-task-definition --task-definition ${{ secrets.AWS_ECS_TASK_DEFINITION }} \
+#          --query taskDefinition > task-definition.json
+#
+#      - name: Fill in the new image ID in the Amazon ECS task definition
+#        id: task-def
+#        uses: aws-actions/amazon-ecs-render-task-definition@v1
+#        with:
+#          task-definition: task-definition.json
+#          container-name: ${{ secrets.AWS_ECR_CONTAINER }}
+#          image: ${{ steps.get-image-name.outputs.image }}
+#
+#      - name: Deploy Amazon ECS task definition
+#        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+#        with:
+#          task-definition: ${{ steps.task-def.outputs.task-definition }}
+#          service: ${{ secrets.AWS_ECS_SERVICE }}
+#          cluster: ${{ secrets.AWS_ECS_CLUSTER }}
+#          wait-for-service-stability: true
