@@ -34,7 +34,3 @@ RUN php artisan optimize
 RUN php artisan config:clear
 
 RUN chown -R application:application .
-
-RUN chmod +x docker-entrypoint.sh
-
-ENTRYPOINT ["./docker-entrypoint.sh"]
