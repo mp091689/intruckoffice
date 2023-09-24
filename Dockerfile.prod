@@ -4,7 +4,7 @@ ENV WEB_DOCUMENT_ROOT=/app/public
 
 WORKDIR /app
 
-apk add --update npm
+RUN apk add --update npm
 
 RUN apk add --update mysql mysql-client && rm -f /var/cache/apk/*
 
