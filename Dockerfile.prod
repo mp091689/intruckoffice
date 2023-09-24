@@ -35,4 +35,6 @@ RUN php artisan config:clear
 
 RUN chown -R application:application .
 
-ENTRYPOINT ["docker-entrypoint.sh"]
+RUN chmod +x docker-entrypoint.sh
+
+ENTRYPOINT ["./docker-entrypoint.sh"]
