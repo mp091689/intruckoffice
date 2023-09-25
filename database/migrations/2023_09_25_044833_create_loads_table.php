@@ -14,13 +14,13 @@ return new class extends Migration
     {
         Schema::create('loads', function (Blueprint $table) {
             $table->id();
-            $table->string('pickup_address');
-            $table->timestamp('pickup_datetime');
-            $table->string('dropoff_address');
-            $table->timestamp('dropoff_datetime');
-            $table->string('price', 10);
-            $table->integer('distance');
-            $table->text('description');
+            $table->string('pickup_address')->nullable();
+            $table->timestamp('pickup_datetime')->nullable();
+            $table->string('dropoff_address')->nullable();
+            $table->timestamp('dropoff_datetime')->nullable();
+            $table->string('price', 10)->nullable();
+            $table->integer('distance')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
