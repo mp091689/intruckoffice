@@ -39,6 +39,5 @@ RUN chown -R application:application .
 
 RUN chmod +x docker-entrypoint.sh
 
-ENTRYPOINT ["./docker-entrypoint.sh"]
-
-CMD ["/bin/service", "-d"]
+ENTRYPOINT ["/bin/bash"]
+CMD ["./docker-entrypoint.sh"]
