@@ -8,7 +8,7 @@ class MigrationController extends Controller
 {
     public function migrate()
     {
-        Artisan::call('migrate');
+        Artisan::call('migrate', ['--force' => true]);
 
         return redirect()->back()->with('success', 'migration executed');
     }
