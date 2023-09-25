@@ -14,7 +14,7 @@ RUN npm install && npm run build
 
 RUN composer install --no-interaction --optimize-autoloader --no-dev
 
-RUN cp .env.example .env
+RUN cp .env.prod.example .env
 
 RUN --mount=type=secret,id=AWS_RDS_ENDPOINT \
     --mount=type=secret,id=AWS_RDS_DB \
@@ -24,6 +24,7 @@ RUN --mount=type=secret,id=AWS_RDS_ENDPOINT \
     export DB_DATABASE=$(cat /run/secrets/AWS_RDS_DB) && \
     export DB_USERNAME=$(cat /run/secrets/AWS_RDS_USER) && \
     export DB_PASSWORD=$(cat /run/secrets/AWS_RDS_PASSWORD) && \
+    sed -i~ "/^DB_HOST=/s/=.*/=${DB_HOST}/" .env && \
     sed -i~ "/^DB_HOST=/s/=.*/=${DB_HOST}/" .env && \
     sed -i~ "/^DB_DATABASE=/s/=.*/=${DB_DATABASE}/" .env && \
     sed -i~ "/^DB_USERNAME=/s/=.*/=${DB_USERNAME}/" .env && \
