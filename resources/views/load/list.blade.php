@@ -33,7 +33,7 @@
                                 </div>
                                 <div class="text-center w-full bg-gray-700 sm:bg-gray-800 py-2">
                                     <p>30%: $ {{ ($load->price*0.3) }}</p>
-                                    <p>$ {{ number_format(($load->price*0.3)/$load->distance, 2) }} per mile</p>
+                                    <p>$ {{ number_format(($load->price*($load->percentage/100))/$load->distance, 2) }} per mile</p>
                                 </div>
                             </div>
                             <div class="flex justify-end mt-4">

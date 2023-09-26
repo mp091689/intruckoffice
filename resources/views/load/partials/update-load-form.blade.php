@@ -37,10 +37,18 @@
             <x-input-error class="mt-2" :messages="$errors->get('distance')" />
         </div>
 
-        <div>
-            <x-input-label for="price" :value="__('Price')" />
-            <x-text-input id="price" name="price" type="text" class="mt-1 block w-full" required autofocus :value="old('price', $load->price)"/>
-            <x-input-error class="mt-2" :messages="$errors->get('price')" />
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <x-input-label for="price" :value="__('Price')" />
+                <x-text-input id="price" name="price" type="text" class="mt-1 block w-full" required autofocus :value="old('price', $load->price)"/>
+                <x-input-error class="mt-2" :messages="$errors->get('price')" />
+            </div>
+
+            <div>
+                <x-input-label for="percentage" :value="__('Percentage')" />
+                <x-text-input id="percentage" name="percentage" type="text" class="mt-1 block w-full" required autofocus :value="old('percentage', $load->percentage)" />
+                <x-input-error class="mt-2" :messages="$errors->get('percentage')" />
+            </div>
         </div>
 
         <div>

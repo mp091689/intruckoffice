@@ -29,12 +29,13 @@ class LoadController extends Controller
     {
         $attributes = \request()->validate([
             'price' => ['required', 'numeric'],
+            'percentage' => ['required', 'integer', 'max:100', 'min:0'],
             'distance' => ['required', 'numeric'],
             'pickup_address' => ['required', 'string', 'min:5'],
             'pickup_datetime' => ['required', 'date'],
             'dropoff_address' => ['required', 'string', 'min:5'],
             'dropoff_datetime' => ['required', 'date', 'min:5'],
-            'description' => ['required', 'string'],
+            'description' => ['string'],
         ]);
 
         Load::create($attributes);
@@ -46,12 +47,13 @@ class LoadController extends Controller
     {
         $attributes = \request()->validate([
             'price' => ['required', 'numeric'],
+            'percentage' => ['required', 'integer', 'max:100', 'min:0'],
             'distance' => ['required', 'numeric'],
             'pickup_address' => ['required', 'string', 'min:5'],
             'pickup_datetime' => ['required', 'date'],
             'dropoff_address' => ['required', 'string', 'min:5'],
             'dropoff_datetime' => ['required', 'date', 'min:5'],
-            'description' => ['required', 'string', 'min:10'],
+            'description' => ['string'],
         ]);
 
         $load->update($attributes);
