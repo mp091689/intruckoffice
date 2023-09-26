@@ -25,8 +25,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::post('/migrate', [MigrationController::class, 'migrate'])->name('db.migrate');
-
     Route::get('/loads', [LoadController::class, 'list'])->name('load.list');
     Route::get('/loads/create', [LoadController::class, 'create'])->name('load.create');
     Route::get('/loads/{load}', [LoadController::class, 'edit'])->name('load.edit');
@@ -34,6 +32,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/loads', [LoadController::class, 'store'])->name('load.store');
     Route::patch('/loads/{load}', [LoadController::class, 'update'])->name('load.update');
     Route::delete('/loads/{load}', [LoadController::class, 'destroy'])->name('load.delete');
+});
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::post('/migrate', [MigrationController::class, 'migrate'])->name('db.migrate');
 });
 
 require __DIR__.'/auth.php';

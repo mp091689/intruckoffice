@@ -13,17 +13,16 @@
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         {{ __("You're logged in!") }}
                     </div>
-                    <x-primary-button>
-                        {{ __('Confirm') }}
-                    </x-primary-button>
                 </div>
             </div>
 
+            @role('admin')
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                 <div class="max-w-xl">
                     @include('migrations.migrate')
                 </div>
             </div>
+            @endrole
         </div>
 
     </div>
