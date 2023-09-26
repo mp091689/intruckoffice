@@ -26,7 +26,7 @@
             <x-input-error class="mt-2" :messages="$errors->get('dropoff_address')" />
         </div>
         <div>
-            <x-input-label for="dropoff_datetime" :value="__('Pickup Date Time')" />
+            <x-input-label for="dropoff_datetime" :value="__('Drop Off Date Time')" />
             <x-text-input id="dropoff_datetime" name="dropoff_datetime" type="datetime-local" class="mt-1 block w-full" required autofocus autocomplete="dropoff_datetime" :value="old('dropoff_datetime', $load->dropoff_datetime)"/>
             <x-input-error class="mt-2" :messages="$errors->get('dropoff_datetime')" />
         </div>
