@@ -16,12 +16,12 @@
                             <div class="grid gap-4 sm:grid-cols-3 text-sm sm:text-md justify-items-center items-center">
                                 <div class="text-center w-full bg-gray-700 sm:bg-gray-800 py-2">
                                     <div class="pb-2 border-b border-gray-800 sm:border-gray-700">
-                                        <h3 class="underline text-center">FROM</h3>
+                                        <h3 class="hidden sm:block underline text-center">FROM</h3>
                                         <p>{{ $load->pickup_address }}</p>
                                         <p>{{ $load->pickup_datetime }}</p>
                                     </div>
                                     <div class="mt-2">
-                                        <h3 class="underline text-center">TO</h3>
+                                        <h3 class="hidden sm:block underline text-center">TO</h3>
                                         <p>{{ $load->dropoff_address }}</p>
                                         <p>{{ $load->dropoff_datetime }}</p>
                                     </div>

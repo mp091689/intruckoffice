@@ -53,7 +53,7 @@
 
         <div>
             <x-input-label for="description" :value="__('Description')" />
-            <x-text-area id="description" name="description" type="text" class="mt-1 block w-full" rows="4" required autofocus>{{ old('description') }}</x-text-area>
+            <x-text-area id="description" name="description" type="text" class="mt-1 block w-full" rows="4" autofocus>{{ old('description') }}</x-text-area>
             <x-input-error class="mt-2" :messages="$errors->get('description')" />
         </div>
 
