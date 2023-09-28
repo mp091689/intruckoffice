@@ -4,7 +4,7 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __('Loads') }}
             </h2>
-            <x-button-link :href="route('load.create')">{{  __('Add Load') }}</x-button-link>
+            <x-button-link :href="route('loads.create')">{{  __('Add Load') }}</x-button-link>
         </div>
     </x-slot>
     <div class="py-12">
@@ -38,7 +38,7 @@
                             </div>
                             <div class="flex justify-end mt-4">
                                 <x-button-link
-                                        :href="route('load.edit', ['load' => $load])">{{  __('Edit') }}</x-button-link>
+                                        :href="route('loads.edit', ['load' => $load])">{{  __('Edit') }}</x-button-link>
                             </div>
                         </div>
                     </div>

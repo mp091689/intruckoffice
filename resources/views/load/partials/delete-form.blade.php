@@ -15,7 +15,7 @@
     >{{ __('Delete') }}</x-danger-button>
 
     <x-modal name="confirm-load-deletion" :show="$errors->loadDeletion->isNotEmpty()" focusable>
-        <form method="post" action="{{ route('load.delete', ['load' => $load]) }}" class="p-6">
+        <form method="post" action="{{ route('loads.destroy', ['load' => $load]) }}" class="p-6">
             @csrf
             @method('delete')
 

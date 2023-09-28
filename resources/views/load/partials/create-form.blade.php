@@ -5,7 +5,7 @@
         </h2>
     </header>
 
-    <form method="post" action="{{ route('load.store') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('loads.store') }}" class="mt-6 space-y-6">
         @csrf
         @method('post')
 
@@ -60,7 +60,7 @@
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 
-            @if (session('status') === 'success')
+            @if (session('status') === 'created')
                 <p
                         x-data="{ show: true }"
                         x-show="show"
