@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('load.list')" :active="request()->routeIs('load.list')">
                         {{ __('Loads') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('drivers.index')" :active="request()->routeIs('drivers.index')">
+                        {{ __('Drivers') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -88,6 +91,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('load.list')" :active="request()->routeIs('load.list')">
                 {{ __('Loads') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('drivers.index')" :active="request()->routeIs('drivers.index')">
+                {{ __('Drivers') }}
             </x-responsive-nav-link>
         </div>
 

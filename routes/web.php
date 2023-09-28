@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DriverController;
 use App\Http\Controllers\LoadController;
 use App\Http\Controllers\MigrationController;
 use App\Http\Controllers\ProfileController;
@@ -32,6 +33,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/loads', [LoadController::class, 'store'])->name('load.store');
     Route::patch('/loads/{load}', [LoadController::class, 'update'])->name('load.update');
     Route::delete('/loads/{load}', [LoadController::class, 'destroy'])->name('load.delete');
+
+    Route::resource('drivers', DriverController::class);
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
