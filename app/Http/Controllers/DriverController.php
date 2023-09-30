@@ -61,6 +61,10 @@ class DriverController extends Controller
      */
     public function destroy(Driver $driver): RedirectResponse
     {
+        if ($driver->loads()->count()) {
+            return Redirect::back()->with('status', 'error');
+        }
+
         $driver->delete();
 
         return Redirect::route('drivers.index')->with('status', 'deleted');

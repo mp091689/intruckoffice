@@ -12,10 +12,12 @@
             @foreach ($drivers as $driver)
                 <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg  overflow-hidden text-gray-900 dark:text-gray-100">
                     <div class="grid gap-4 sm:grid-cols-4 text-sm sm:text-md justify-items-center items-center">
-                        <div class="text-lg">{{ $driver->first_name }} {{ $driver->last_name }}</div>
+                        <p>{{ $driver->fullName() }}</p>
                         <a class="font-bold text-lg" href="tel:{{ $driver->phone }}">{{ $driver->phone }}</a>
-                        <a class="font-bold text-lg" href="mailto:{{ $driver->email }}" target="_blank">{{ $driver->email }}</a>
-                        <x-button-link :href="route('drivers.edit', ['driver' => $driver])">{{  __('Edit') }}</x-button-link>
+                        <a class="font-bold text-lg" href="mailto:{{ $driver->email }}"
+                           target="_blank">{{ $driver->email }}</a>
+                        <x-button-link
+                                :href="route('drivers.edit', ['driver' => $driver])">{{  __('Edit') }}</x-button-link>
                     </div>
                 </div>
             @endforeach

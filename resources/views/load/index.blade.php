@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex justify-between">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Loads') }}
+                {{ __($title) }}
             </h2>
             <x-button-link :href="route('loads.create')">{{  __('Add Load') }}</x-button-link>
         </div>
@@ -31,9 +31,19 @@
                                     <p>$ {{ $load->price }}</p>
                                     <p>$ {{ number_format($load->price/$load->distance, 2) }} per mile</p>
                                 </div>
-                                <div class="text-center w-full bg-gray-700 sm:bg-gray-800 py-2">
-                                    <p>30%: $ {{ ($load->price*0.3) }}</p>
-                                    <p>$ {{ number_format(($load->price*($load->percentage/100))/$load->distance, 2) }} per mile</p>
+                                <div class="grid {{ $load->driver2()->exists() ? 'grid-cols-2' : 'grid-cols-1' }} gap-4 w-full">
+                                    <div class="text-center w-full bg-gray-700 sm:bg-gray-800 py-2">
+                                        <p>{{ $load->driver->fullName() }}</p>
+                                        <p>{{ $load->percentage }}%: $ {{ $load->getDriverSalary() }}</p>
+                                        <p>$ {{ number_format($load->getDriverSalary()/$load->distance, 2) }} per mile</p>
+                                    </div>
+                                    @if($load->driver2()->exists())
+                                        <div class="text-center w-full bg-gray-700 sm:bg-gray-800 py-2">
+                                            <p>{{ $load->driver2->fullName() }}</p>
+                                            <p>{{ $load->percentage2 }}%: $ {{ $load->getDriver2Salary() }}</p>
+                                            <p>$ {{ number_format($load->getDriver2Salary()/$load->distance, 2) }} per mile</p>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                             <div class="flex justify-end mt-4">

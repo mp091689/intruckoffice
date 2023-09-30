@@ -28,6 +28,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::resource('loads', LoadController::class);
     Route::resource('drivers', DriverController::class);
+
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {

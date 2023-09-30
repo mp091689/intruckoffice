@@ -13,11 +13,14 @@
                 </div>
             </div>
 
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('driver.partials.delete-form')
+            @if($driver->loads()->count() < 1)
+                <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                    <div class="max-w-xl">
+                        @include('driver.partials.delete-form')
+                    </div>
                 </div>
-            </div>
+            @endif
+
         </div>
     </div>
 </x-app-layout>
