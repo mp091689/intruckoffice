@@ -22,12 +22,13 @@ class StoreLoadRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'price' => ['required', 'numeric', 'max_digits:10'],
-            'distance' => ['required', 'numeric', 'max_digits:10'],
             'pickup_address' => ['required', 'string', 'min:5'],
             'pickup_datetime' => ['required', 'date'],
             'dropoff_address' => ['required', 'string', 'min:5'],
             'dropoff_datetime' => ['required', 'date', 'min:5'],
+            'dispatcher_id' => ['required', 'exists:dispatchers,id'],
+            'price' => ['required', 'numeric', 'max_digits:10'],
+            'distance' => ['required', 'numeric', 'max_digits:10'],
             'description' => ['required'],
             'driver_id' => ['required', 'exists:drivers,id'],
             'percentage' => ['required', 'integer', 'max:100', 'min:0'],

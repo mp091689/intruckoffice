@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreLoadRequest;
 use App\Http\Requests\UpdateLoadRequest;
+use App\Models\Dispatcher;
 use App\Models\Driver;
 use App\Models\Load;
 use Illuminate\Http\RedirectResponse;
@@ -12,27 +13,19 @@ use Illuminate\View\View;
 
 class LoadController extends Controller
 {
-    public function index(?Driver $driver): View
+    public function index(): View
     {
-        $title = 'Loads';
-        $builder = Load::with('driver');
+        $loads = Load::with('driver')->get()->sortByDesc('pickup_datetime');
 
-        if ($driver->exists) {
-            $title = "Loads: $driver->fullName";
-            $builder->where('driver_id', $driver->id)
-                ->orWhere('driver2_id', $driver->id);
-        }
-
-        $loads = $builder->get()->sortByDesc('pickup_datetime');
-
-        return view('load.index', ['loads' => $loads, 'title' => $title]);
+        return view('load.index', ['loads' => $loads]);
     }
 
     public function create(): View
     {
         return view('load.create', [
             'load' => new Load(),
-            'drivers' => Driver::all(),
+            'drivers' => Driver::all()->sortBy('first_name'),
+            'dispatchers' => Dispatcher::all()->sortBy('name'),
         ]);
     }
 
@@ -48,7 +41,8 @@ class LoadController extends Controller
     {
         return view('load.edit', [
             'load' => $load,
-            'drivers' => Driver::all(),
+            'drivers' => Driver::all()->sortBy('first_name'),
+            'dispatchers' => Dispatcher::all()->sortBy('name'),
         ]);
     }
 

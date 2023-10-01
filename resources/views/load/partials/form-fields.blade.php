@@ -30,6 +30,17 @@
     <x-input-error class="mt-2" :messages="$errors->get('dropoff_datetime')" />
 </div>
 
+<div>
+    <x-input-label for="dispatcher_id" :value="__('Dispatcher')" />
+    <x-select id="dispatcher_id" name="dispatcher_id" class="mt-1 block w-full" required autofocus>
+        <option value="" selected disabled>Select Dispatcher</option>
+        @foreach($dispatchers as $dispatcher)
+            <option value="{{ $dispatcher->id }}" {{ old('dispatcher_id', $load->dispatcher?->id) == $dispatcher->id ? 'selected' : '' }}>{{  $dispatcher->name }}</option>
+        @endforeach
+    </x-select>
+    <x-input-error class="mt-2" :messages="$errors->get('dispatcher_id')" />
+</div>
+
 <div class="grid grid-cols-2 gap-4">
     <div>
         <x-input-label for="distance" :value="__('Distance')" />
@@ -52,7 +63,7 @@
         <x-select id="driver_id" name="driver_id" class="mt-1 block w-full" required autofocus>
             <option value="" selected disabled>Select Driver 1</option>
             @foreach($drivers as $driver)
-                <option value="{{ $driver->id }}" {{ old('driver_id', $load->driver?->id) == $driver->id ? 'selected' : '' }}>{{  $driver->first_name }} {{ $driver->last_name }}</option>
+                <option value="{{ $driver->id }}" {{ old('driver_id', $load->driver?->id) == $driver->id ? 'selected' : '' }}>{{  $driver->fullName() }}</option>
             @endforeach
         </x-select>
         <x-input-error class="mt-2" :messages="$errors->get('driver_id')" />
@@ -72,7 +83,7 @@
         <x-select id="driver2_id" name="driver2_id" class="mt-1 block w-full">
             <option value="" selected >Select Driver 2</option>
             @foreach($drivers as $driver)
-                <option value="{{ $driver->id }}" {{ old('driver2_id', $load->driver2?->id) == $driver->id ? 'selected' : '' }}>{{  $driver->first_name }} {{ $driver->last_name }}</option>
+                <option value="{{ $driver->id }}" {{ old('driver2_id', $load->driver2?->id) == $driver->id ? 'selected' : '' }}>{{  $driver->fullName() }}</option>
             @endforeach
         </x-select>
         <x-input-error class="mt-2" :messages="$errors->get('driver2_id')" />

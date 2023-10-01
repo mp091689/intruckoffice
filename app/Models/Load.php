@@ -10,11 +10,16 @@ class Load extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'pickup_datetime' => 'datetime',
+        'dropoff_datetime' => 'datetime',
+    ];
+
     protected $guarded = [];
 
     public function getDriverSalary(): string
     {
-        return $this->price*($this->percentage/100);
+        return $this->price * ($this->percentage / 100);
     }
 
     public function driver(): BelongsTo
@@ -29,6 +34,11 @@ class Load extends Model
 
     public function getDriver2Salary(): string
     {
-        return $this->price*($this->percentage2/100);
+        return $this->price * ($this->percentage2 / 100);
+    }
+
+    public function dispatcher(): BelongsTo
+    {
+        return $this->belongsTo(Dispatcher::class);
     }
 }

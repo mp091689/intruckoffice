@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex justify-between">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __($title) }}
+                {{ __('Loads') }}
             </h2>
             <x-button-link :href="route('loads.create')">{{  __('Add Load') }}</x-button-link>
         </div>
@@ -16,17 +16,16 @@
                             <div class="grid gap-4 sm:grid-cols-3 text-sm sm:text-md justify-items-center items-center">
                                 <div class="text-center w-full bg-gray-700 sm:bg-gray-800 py-2">
                                     <div class="pb-2 border-b border-gray-800 sm:border-gray-700">
-                                        <h3 class="hidden sm:block underline text-center">FROM</h3>
                                         <p>{{ $load->pickup_address }}</p>
-                                        <p>{{ $load->pickup_datetime }}</p>
+                                        <p>{{ $load->pickup_datetime->format('m/d/y H:i') }}</p>
                                     </div>
                                     <div class="mt-2">
-                                        <h3 class="hidden sm:block underline text-center">TO</h3>
                                         <p>{{ $load->dropoff_address }}</p>
-                                        <p>{{ $load->dropoff_datetime }}</p>
+                                        <p>{{ $load->dropoff_datetime->format('m/d/y H:i') }}</p>
                                     </div>
                                 </div>
                                 <div class="text-center w-full bg-gray-700 sm:bg-gray-800 py-2">
+                                    <p class="underline font-bold">{{ $load->dispatcher?->name }}</p>
                                     <p>{{ $load->distance }} miles</p>
                                     <p>$ {{ $load->price }}</p>
                                     <p>$ {{ number_format($load->price/$load->distance, 2) }} per mile</p>

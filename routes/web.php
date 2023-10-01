@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DispatcherController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\LoadController;
 use App\Http\Controllers\MigrationController;
@@ -28,7 +29,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::resource('loads', LoadController::class);
     Route::resource('drivers', DriverController::class);
-
+    Route::resource('dispatchers', DispatcherController::class);
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
