@@ -29,7 +29,7 @@ class StoreLoadRequest extends FormRequest
             'dispatcher_id' => ['required', 'exists:dispatchers,id'],
             'price' => ['required', 'numeric', 'max_digits:10'],
             'distance' => ['required', 'numeric', 'max_digits:10'],
-            'description' => ['required'],
+            'description' => [],
             'driver_id' => ['required', 'exists:drivers,id'],
             'percentage' => ['required', 'integer', 'max:100', 'min:0'],
             'driver2_id' => ['nullable', 'exists:drivers,id', 'different:driver_id'],

@@ -72,7 +72,7 @@
     <div>
         <x-input-label for="percentage" :value="__('Percentage')" />
         <x-text-input id="percentage" name="percentage" type="text" class="mt-1 block w-full" required autofocus
-                      :value="old('percentage', $load->percentage)" />
+                      :value="old('percentage', $load->percentage ?? 30)" />
         <x-input-error class="mt-2" :messages="$errors->get('percentage')" />
     </div>
 </div>
@@ -93,7 +93,7 @@
         <x-input-label for="percentage2" :value="__('Percentage 2')" />
         <x-text-input id="percentage2" name="percentage2" type="text" class="mt-1 block w-full" required
                       autofocus
-                      :value="old('percentage2', $load->percentage2)" />
+                      :value="old('percentage2', $load->percentage2 ?? 0)" />
         <x-input-error class="mt-2" :messages="$errors->get('percentage2')" />
     </div>
 </div>
@@ -101,6 +101,6 @@
 <div>
     <x-input-label for="description" :value="__('Description')" />
     <x-text-area id="description" name="description" type="text" class="mt-1 block w-full" rows="4"
-                 autofocus>{{ old('description', $load->description) }}</x-text-area>
+                 autofocus>{{ old('description', $load->description ?? '') }}</x-text-area>
     <x-input-error class="mt-2" :messages="$errors->get('description')" />
 </div>
