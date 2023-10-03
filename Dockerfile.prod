@@ -32,8 +32,6 @@ RUN --mount=type=secret,id=APP_KEY \
     sed -i~ "/^DB_USERNAME=/s/=.*/=${DB_USERNAME}/" .env && \
     sed -i~ "/^DB_PASSWORD=/s/=.*/=${DB_PASSWORD}/" .env
 
-RUN php artisan key:generate
-
 RUN php artisan optimize
 
 RUN php artisan config:clear
