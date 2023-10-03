@@ -16,15 +16,17 @@ RUN composer install --no-interaction --optimize-autoloader --no-dev
 
 RUN cp .env.prod.example .env
 
-RUN --mount=type=secret,id=AWS_RDS_ENDPOINT \
+RUN --mount=type=secret,id=APP_KEY \
+    --mount=type=secret,id=AWS_RDS_ENDPOINT \
     --mount=type=secret,id=AWS_RDS_DB \
     --mount=type=secret,id=AWS_RDS_USER \
     --mount=type=secret,id=AWS_RDS_PASSWORD \
+    export APP_KEY=$(cat /run/secrets/APP_KEY) && \
     export DB_HOST=$(cat /run/secrets/AWS_RDS_ENDPOINT) && \
     export DB_DATABASE=$(cat /run/secrets/AWS_RDS_DB) && \
     export DB_USERNAME=$(cat /run/secrets/AWS_RDS_USER) && \
     export DB_PASSWORD=$(cat /run/secrets/AWS_RDS_PASSWORD) && \
-    sed -i~ "/^DB_HOST=/s/=.*/=${DB_HOST}/" .env && \
+    sed -i~ "/^APP_KEY=/s/=.*/=${APP_KEY}/" .env && \
     sed -i~ "/^DB_DATABASE=/s/=.*/=${DB_DATABASE}/" .env && \
     sed -i~ "/^DB_USERNAME=/s/=.*/=${DB_USERNAME}/" .env && \
     sed -i~ "/^DB_PASSWORD=/s/=.*/=${DB_PASSWORD}/" .env
