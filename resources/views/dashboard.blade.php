@@ -9,18 +9,20 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
-                        {{ __("You're logged in!") }}
-                    </div>
-                </div>
+                <p class="text-gray-900 dark:text-gray-100 text-lg">{{ __("Loads by Dispatchers") }}</p>
+                <p class="text-gray-900 dark:text-gray-400 text-sm">{{ __("Step one week") }}</p>
+                <div id="chart_div" class="w-full h-96"></div>
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                <script type="text/javascript">
+                    const dispatchers = {!! $dispatchers->toJson() !!};
+                    const groupedLoads = {!! $groupedLoads->toJson() !!};
+                </script>
+                @vite('resources/js/charts.js')
             </div>
 
             @role('admin')
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('migrations.migrate')
-                </div>
+                @include('migrations.migrate')
             </div>
             @endrole
         </div>
