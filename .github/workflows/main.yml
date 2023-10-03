@@ -37,6 +37,7 @@
           tags: ${{ steps.get-image-name.outputs.image }}
           provenance: false
           secrets: |
+            "APP_KEY=${{ secrets.APP_KEY }}"
             "AWS_RDS_DB=${{ secrets.AWS_RDS_DB }}"
             "AWS_RDS_ENDPOINT=${{ secrets.AWS_RDS_ENDPOINT }}"
             "AWS_RDS_USER=${{ secrets.AWS_RDS_USER }}"
