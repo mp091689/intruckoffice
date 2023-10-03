@@ -10,10 +10,9 @@ class Dashboard extends Controller
 {
     public function index(): View
     {
-        $months = Load::all()
-            ->groupBy(function ($row) {
-                return $row->pickup_datetime->format('m');
-            });
+        $months = Load::all()->groupBy(function ($row) {
+            return $row->pickup_datetime->format('m');
+        });
 
         return view('dashboard', [
             'dispatchers' => Dispatcher::all()->sortBy('name'),

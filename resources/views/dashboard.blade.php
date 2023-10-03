@@ -10,7 +10,7 @@
 
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                 <p class="text-gray-900 dark:text-gray-100 text-lg">{{ __("Loads by Dispatchers") }}</p>
-                <p class="text-gray-900 dark:text-gray-400 text-sm">{{ __("Step one week") }}</p>
+                <p class="text-gray-900 dark:text-gray-400 text-sm">{{ __("Step one month") }}</p>
                 <div id="chart_div" class="w-full h-96"></div>
                 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
                 <script type="text/javascript">

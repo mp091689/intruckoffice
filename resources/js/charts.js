@@ -35,8 +35,6 @@ function drawChart() {
         compactArray.push(result[i]);
     }
 
-    console.log(compactArray);
-
     data.addRows(compactArray);
 
     var options = {
@@ -48,13 +46,19 @@ function drawChart() {
         },
         hAxis: {
             textStyle: { color: '#9ca3af' },
-            gridlines: { color: '#364050' },
             minorGridlines: { color: '#364050' },
+            gridlines: {
+                color: '#364050',
+                interval: 1,
+            },
         },
         vAxis: {
             textStyle: { color: '#9ca3af' },
-            gridlines: { color: '#364050' },
             minorGridlines: { color: '#364050' },
+            gridlines: {
+                color: '#364050',
+                interval: 1,
+            },
         },
         legend: {
             position: 'top',
