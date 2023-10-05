@@ -11,12 +11,14 @@ class Load extends Model
     use HasFactory;
 
     const STATUS_IN_PROGRESS = 'in_progress';
-    const STATUS_DONE = 'done';
+    const STATUS_DELIVERED = 'delivered';
+    const STATUS_PAID = 'paid';
     const STATUS_CANCELED = 'canceled';
 
     const STATUSES = [
         self::STATUS_IN_PROGRESS => 'In Progress',
-        self::STATUS_DONE => 'Done',
+        self::STATUS_DELIVERED => 'Delivered',
+        self::STATUS_PAID => 'Paid',
         self::STATUS_CANCELED => 'Canceled',
     ];
 

@@ -22,8 +22,9 @@ class LoadController extends Controller
             ->sortBy(function (Load $load) {
                 return match ($load->status) {
                     Load::STATUS_IN_PROGRESS => 1,
-                    Load::STATUS_DONE => 2,
-                    Load::STATUS_CANCELED => 3,
+                    Load::STATUS_DELIVERED => 2,
+                    Load::STATUS_PAID => 3,
+                    Load::STATUS_CANCELED => 4,
                 };
             });
 
