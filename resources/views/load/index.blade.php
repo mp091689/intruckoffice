@@ -4,7 +4,10 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __('Loads') }}
             </h2>
-            <x-button-link :href="route('loads.create')">{{  __('Add Load') }}</x-button-link>
+            <div class="space-x-2 text-end">
+{{--                <x-button-link :href="route('invoices.generate')">{{  __('Invoices') }}</x-button-link>--}}
+                <x-button-link :href="route('loads.create')">{{  __('Add Load') }}</x-button-link>
+            </div>
         </div>
     </x-slot>
     <div class="py-12">
@@ -27,7 +30,7 @@
                                 <p>{{ $load->percentage }}%: $ {{ $load->getDriverSalary() }}</p>
                             </div>
                             @if($load->driver2()->exists())
-                                <div class="text-center w-full bg-gray-700">
+                                <div class="text-center w-full">
                                     <p>{{ $load->driver2->fullName() }}</p>
                                     <p>{{ $load->percentage2 }}%: $ {{ $load->getDriver2Salary() }}</p>
                                 </div>

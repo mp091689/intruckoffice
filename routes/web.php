@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\Dashboard;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DispatcherController;
 use App\Http\Controllers\DriverController;
+use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\LoadController;
 use App\Http\Controllers\MigrationController;
 use App\Http\Controllers\ProfileController;
@@ -20,7 +21,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/', [Dashboard::class, 'index'])->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('/invoices/generate', [InvoicesController::class, 'index'])->name('invoices.generate');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

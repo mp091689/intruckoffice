@@ -6,7 +6,7 @@ use App\Models\Dispatcher;
 use App\Models\Load;
 use Illuminate\View\View;
 
-class Dashboard extends Controller
+class DashboardController extends Controller
 {
     public function index(): View
     {
