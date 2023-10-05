@@ -10,6 +10,16 @@ class Load extends Model
 {
     use HasFactory;
 
+    const STATUS_IN_PROGRESS = 'in_progress';
+    const STATUS_DONE = 'done';
+    const STATUS_CANCELED = 'canceled';
+
+    const STATUSES = [
+        self::STATUS_IN_PROGRESS => 'In Progress',
+        self::STATUS_DONE => 'Done',
+        self::STATUS_CANCELED => 'Canceled',
+    ];
+
     protected $casts = [
         'pickup_datetime' => 'datetime',
         'dropoff_datetime' => 'datetime',

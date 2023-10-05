@@ -35,7 +35,7 @@ class DispatcherController extends Controller
         $dispatcher = new Dispatcher($request->validated());
         $dispatcher->save();
 
-        return Redirect::route('dispatchers.index')->with('status', 'created');
+        return Redirect::route('dispatchers.index')->with('flash', ['status' => 'success', 'text' => 'Dispatcher created.']);
     }
 
     /**
@@ -53,7 +53,7 @@ class DispatcherController extends Controller
     {
         $dispatcher->update($request->validated());
 
-        return Redirect::back()->with('status', 'updated');
+        return Redirect::back()->with('flash', ['status' => 'success', 'text' => 'Dispatcher data updated.']);
     }
 
     /**
@@ -62,11 +62,11 @@ class DispatcherController extends Controller
     public function destroy(Dispatcher $dispatcher): RedirectResponse
     {
         if ($dispatcher->loads()->count()) {
-            return Redirect::back()->with('status', 'error');
+            return Redirect::back()->with('flash', ['status' => 'fail', 'text' => 'Dispatcher can\'t be deleted.']);
         }
 
         $dispatcher->delete();
 
-        return Redirect::route('dispatchers.index')->with('status', 'deleted');
+        return Redirect::route('dispatchers.index')->with('flash', ['status' => 'success', 'text' => 'Dispatcher deleted.']);
     }
 }

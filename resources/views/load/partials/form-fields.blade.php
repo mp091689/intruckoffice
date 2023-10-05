@@ -10,7 +10,7 @@
     <x-input-label for="pickup_datetime" :value="__('Pickup Date Time')" />
     <x-text-input id="pickup_datetime" name="pickup_datetime" type="datetime-local" class="mt-1 block w-full"
                   required autofocus autocomplete="pickup_datetime"
-                  :value="old('pickup_datetime', $load->pickup_datetime)" />
+                  :value="old('pickup_datetime', $load->pickup_datetime ?? now()->startOfDay()->addHours(8))" />
     <x-input-error class="mt-2" :messages="$errors->get('pickup_datetime')" />
 </div>
 
@@ -26,7 +26,7 @@
     <x-input-label for="dropoff_datetime" :value="__('Drop Off Date Time')" />
     <x-text-input id="dropoff_datetime" name="dropoff_datetime" type="datetime-local" class="mt-1 block w-full"
                   required autofocus autocomplete="dropoff_datetime"
-                  :value="old('dropoff_datetime', $load->dropoff_datetime)" />
+                  :value="old('dropoff_datetime', $load->dropoff_datetime ?? now()->startOfDay()->addDay()->addHours(8))" />
     <x-input-error class="mt-2" :messages="$errors->get('dropoff_datetime')" />
 </div>
 
@@ -100,7 +100,17 @@
 
 <div>
     <x-input-label for="description" :value="__('Description')" />
-    <x-text-area id="description" name="description" type="text" class="mt-1 block w-full" rows="4"
+    <x-text-area id="description" name="description" type="text" class="mt-1 block w-full" rows="8"
                  autofocus>{{ old('description', $load->description ?? '') }}</x-text-area>
     <x-input-error class="mt-2" :messages="$errors->get('description')" />
+</div>
+
+<div>
+    <x-input-label for="status" :value="__('Status')" />
+    <x-select id="status" name="status" class="mt-1 block w-full">
+        @foreach(\App\Models\Load::STATUSES as $statusKey => $statusTitle)
+            <option value="{{ $statusKey }}" {{ old('status', $load->status) == $statusKey ? 'selected' : '' }}>{{ $statusTitle }}</option>
+        @endforeach
+    </x-select>
+    <x-input-error class="mt-2" :messages="$errors->get('status')" />
 </div>

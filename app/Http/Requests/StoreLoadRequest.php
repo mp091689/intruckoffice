@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Load;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreLoadRequest extends FormRequest
 {
@@ -21,7 +23,8 @@ class StoreLoadRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $updateStatusLoadRequest = new UpdateStatusLoadRequest();
+        $rules = [
             'pickup_address' => ['required', 'string', 'min:5'],
             'pickup_datetime' => ['required', 'date'],
             'dropoff_address' => ['required', 'string', 'min:5'],
@@ -35,6 +38,8 @@ class StoreLoadRequest extends FormRequest
             'driver2_id' => ['nullable', 'exists:drivers,id', 'different:driver_id'],
             'percentage2' => ['required', 'integer', 'max:100', 'min:0'],
         ];
+
+        return array_merge($rules, $updateStatusLoadRequest->rules());
     }
 
     /** @inheritDoc */

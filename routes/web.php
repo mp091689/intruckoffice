@@ -27,6 +27,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('loads', LoadController::class);
+    Route::patch('loads/status/{load}', [LoadController::class, 'updateStatus'])->name('loads.update.status');
     Route::resource('drivers', DriverController::class);
     Route::resource('dispatchers', DispatcherController::class);
 });

@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.load-card.in_progress {
+    @apply bg-sky-50 dark:bg-sky-950 dark:bg-opacity-70 bg-opacity-70
+}
+
+.load-card.done {
+    @apply bg-teal-50 dark:bg-teal-950 dark:bg-opacity-70 bg-opacity-70
+}
+
+.load-card.canceled {
+    @apply bg-pink-50 dark:bg-pink-950 dark:bg-opacity-50 bg-opacity-70
+}
+
+.flash-message.success {
+    @apply bg-green-700
+}
+
+.flash-message.fail {
+    @apply bg-red-700
+}
+
+.flash-message.warning {
+    @apply bg-yellow-700
+}

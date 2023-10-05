@@ -10,6 +10,6 @@ class MigrationController extends Controller
     {
         Artisan::call('migrate', ['--force' => true]);
 
-        return redirect()->back()->with('success', 'migration executed');
+        return redirect()->back()->with('flash', ['status' => 'success', 'text' => 'Migration executed.']);
     }
 }

@@ -10,45 +10,36 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             @foreach ($loads as $load)
-                <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                        <div class="text-gray-900 dark:text-gray-100">
-                            <div class="grid gap-4 sm:grid-cols-3 text-sm sm:text-md justify-items-center items-center">
-                                <div class="text-center w-full bg-gray-700 sm:bg-gray-800 py-2">
-                                    <div class="pb-2 border-b border-gray-800 sm:border-gray-700">
-                                        <p>{{ $load->pickup_address }}</p>
-                                        <p>{{ $load->pickup_datetime->format('m/d/y H:i') }}</p>
-                                    </div>
-                                    <div class="mt-2">
-                                        <p>{{ $load->dropoff_address }}</p>
-                                        <p>{{ $load->dropoff_datetime->format('m/d/y H:i') }}</p>
-                                    </div>
-                                </div>
-                                <div class="text-center w-full bg-gray-700 sm:bg-gray-800 py-2">
-                                    <p class="underline font-bold">{{ $load->dispatcher?->name }}</p>
-                                    <p>{{ $load->distance }} miles</p>
-                                    <p>$ {{ $load->price }}</p>
-                                    <p>$ {{ number_format($load->price/$load->distance, 2) }} per mile</p>
-                                </div>
-                                <div class="grid {{ $load->driver2()->exists() ? 'grid-cols-2' : 'grid-cols-1' }} gap-4 w-full">
-                                    <div class="text-center w-full bg-gray-700 sm:bg-gray-800 py-2">
-                                        <p>{{ $load->driver->fullName() }}</p>
-                                        <p>{{ $load->percentage }}%: $ {{ $load->getDriverSalary() }}</p>
-                                        <p>$ {{ number_format($load->getDriverSalary()/$load->distance, 2) }} per mile</p>
-                                    </div>
-                                    @if($load->driver2()->exists())
-                                        <div class="text-center w-full bg-gray-700 sm:bg-gray-800 py-2">
-                                            <p>{{ $load->driver2->fullName() }}</p>
-                                            <p>{{ $load->percentage2 }}%: $ {{ $load->getDriver2Salary() }}</p>
-                                            <p>$ {{ number_format($load->getDriver2Salary()/$load->distance, 2) }} per mile</p>
-                                        </div>
-                                    @endif
-                                </div>
+                <div class="load-card p-2 sm:p-2 bg-teal-50 dark:bg-teal-950 overflow-hidden shadow-sm sm:rounded-lg text-gray-900 dark:text-gray-100 {{ $load->status }}">
+                    <div class="grid gap-2 sm:grid-cols-4 text-sm sm:text-md justify-items-center items-center">
+                        <div class="text-center w-full">
+                            <p>{{ $load->pickup_address }} {{ $load->pickup_datetime->format('m/d/y H:i') }} -></p>
+                            <p>-> {{ $load->dropoff_address }} {{ $load->dropoff_datetime->format('m/d/y H:i') }}</p>
+                        </div>
+                        <div class="text-center w-full">
+                            <p class="underline font-bold">{{ $load->dispatcher?->name }}</p>
+                            <p>{{ $load->distance }} miles / $ {{ $load->price }}</p>
+                            <p>$ {{ number_format($load->price/$load->distance, 2) }} per mile</p>
+                        </div>
+                        <div class="grid {{ $load->driver2()->exists() ? 'grid-cols-2' : 'grid-cols-1' }} gap-4 w-full">
+                            <div class="text-center w-full">
+                                <p>{{ $load->driver->fullName() }}</p>
+                                <p>{{ $load->percentage }}%: $ {{ $load->getDriverSalary() }}</p>
                             </div>
-                            <div class="flex justify-end mt-4">
-                                <x-button-link
-                                        :href="route('loads.edit', ['load' => $load])">{{  __('Edit') }}</x-button-link>
-                            </div>
+                            @if($load->driver2()->exists())
+                                <div class="text-center w-full bg-gray-700">
+                                    <p>{{ $load->driver2->fullName() }}</p>
+                                    <p>{{ $load->percentage2 }}%: $ {{ $load->getDriver2Salary() }}</p>
+                                </div>
+                            @endif
+                        </div>
+                        <div class="grid sm:grid-cols-1 gap-2 {{ $load->status === 'in_progress' ? 'grid-cols-3' : 'grid-cols-1' }}">
+                            <x-button-link
+                                    :href="route('loads.edit', ['load' => $load])">{{  __('Edit') }}</x-button-link>
+                            @if($load->status === 'in_progress')
+                                @include('load.partials.cancel-form')
+                                @include('load.partials.done-form')
+                            @endif
                         </div>
                     </div>
                 </div>

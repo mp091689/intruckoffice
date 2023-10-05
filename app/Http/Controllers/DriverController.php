@@ -35,7 +35,7 @@ class DriverController extends Controller
         $driver = new Driver($request->validated());
         $driver->save();
 
-        return Redirect::route('drivers.index')->with('status', 'created');
+        return Redirect::route('drivers.index')->with('flash', ['status' => 'success', 'text' => 'Driver created.']);
     }
 
     /**
@@ -53,7 +53,7 @@ class DriverController extends Controller
     {
         $driver->update($request->validated());
 
-        return Redirect::back()->with('status', 'updated');
+        return Redirect::back()->with('flash', ['status' => 'success', 'text' => 'Driver data updated.']);
     }
 
     /**
@@ -62,11 +62,11 @@ class DriverController extends Controller
     public function destroy(Driver $driver): RedirectResponse
     {
         if ($driver->loads()->count()) {
-            return Redirect::back()->with('status', 'error');
+            return Redirect::back()->with('flash', ['status' => 'fail', 'text' => 'Driver can\'t be deleted.']);
         }
 
         $driver->delete();
 
-        return Redirect::route('drivers.index')->with('status', 'deleted');
+        return Redirect::route('drivers.index')->with('flash', ['status' => 'success', 'text' => 'Driver deleted.']);
     }
 }
