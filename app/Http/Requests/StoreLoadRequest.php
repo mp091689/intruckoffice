@@ -30,13 +30,11 @@ class StoreLoadRequest extends FormRequest
             'dropoff_address' => ['required', 'string', 'min:5'],
             'dropoff_datetime' => ['required', 'date', 'min:5'],
             'dispatcher_id' => ['required', 'exists:dispatchers,id'],
-            'price' => ['required', 'numeric', 'max_digits:10'],
-            'distance' => ['required', 'numeric', 'max_digits:10'],
+            'estimated_price' => ['required', 'numeric', 'max_digits:10'],
+            'actual_price' => ['required', 'numeric', 'max_digits:10'],
+            'estimated_distance' => ['required', 'integer', 'max_digits:10'],
+            'actual_distance' => ['required', 'integer', 'max_digits:10'],
             'description' => [],
-            'driver_id' => ['required', 'exists:drivers,id'],
-            'percentage' => ['required', 'integer', 'max:100', 'min:0'],
-            'driver2_id' => ['nullable', 'exists:drivers,id', 'different:driver_id'],
-            'percentage2' => ['required', 'integer', 'max:100', 'min:0'],
         ];
 
         return array_merge($rules, $updateStatusLoadRequest->rules());

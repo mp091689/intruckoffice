@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreLoadRequest;
 use App\Http\Requests\UpdateLoadRequest;
-use App\Http\Requests\UpdateStatusLoadRequest;
 use App\Models\Dispatcher;
 use App\Models\Driver;
 use App\Models\Load;
+use App\Models\LoadStatus;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
@@ -16,15 +16,13 @@ class LoadController extends Controller
 {
     public function index(): View
     {
-        $loads = Load::with('driver')
+        $loads = Load::with('works')
             ->get()
             ->sortByDesc('pickup_datetime')
             ->sortBy(function (Load $load) {
                 return match ($load->status) {
-                    Load::STATUS_IN_PROGRESS => 1,
-                    Load::STATUS_DELIVERED => 2,
-                    Load::STATUS_PAID => 3,
-                    Load::STATUS_CANCELED => 4,
+                    LoadStatus::IN_PROGRESS => 1,
+                    LoadStatus::COMPLETED, LoadStatus::CANCELED => 2,
                 };
             });
 
@@ -35,7 +33,6 @@ class LoadController extends Controller
     {
         return view('load.create', [
             'load' => new Load(),
-            'drivers' => Driver::all()->sortBy('first_name'),
             'dispatchers' => Dispatcher::all()->sortBy('name'),
         ]);
     }
@@ -64,15 +61,15 @@ class LoadController extends Controller
         return Redirect::back()->with('flash', ['status' => 'success', 'text' => 'Load data updated.']);
     }
 
-    public function updateStatus(UpdateStatusLoadRequest $request, Load $load): RedirectResponse
-    {
-        $load->update($request->validated());
-
-        return Redirect::back()->with('flash', ['status' => 'success', 'text' => 'Load status updated.']);
-    }
-
     public function destroy(Load $load): RedirectResponse
     {
+        if ($load->works()->count()) {
+            return Redirect::back()->with('flash', [
+                'status' => 'fail',
+                'text' => 'Load has related works. Deletion can\'t be executed.',
+            ]);
+        }
+
         $load->delete();
 
         return Redirect::route('loads.index')->with('flash', ['status' => 'success', 'text' => 'Load deleted.']);

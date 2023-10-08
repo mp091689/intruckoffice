@@ -1,19 +1,27 @@
 <?php
 
-use App\Models\LoadStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
     public function up(): void
     {
         Schema::table('loads', function (Blueprint $table) {
-            $table->enum('status', LoadStatus::values())->default(LoadStatus::IN_PROGRESS);
+            $table->string('actual_distance')->after('estimated_distance');
         });
+
+        $rows = DB::table('loads')->get(['id', 'estimated_distance']);
+        foreach ($rows as $row) {
+            DB::table('loads')
+                ->where('id', $row->id)
+                ->update(['actual_distance' => $row->estimated_distance]);
+        }
     }
 
     /**
@@ -22,7 +30,7 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::table('loads', function (Blueprint $table) {
-            $table->dropColumn('status');
+            $table->dropColumn('actual_distance');
         });
     }
 };

@@ -7,19 +7,17 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('dispatcher.partials.update-form')
-                </div>
+
+            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg max-w-xl">
+                @include('dispatcher.partials.form', ['route' => route('dispatchers.update', $dispatcher), 'method' => 'patch'])
             </div>
 
-            @if($dispatcher->loads()->count() < 1)
-                <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                    <div class="max-w-xl">
-                        @include('dispatcher.partials.delete-form')
-                    </div>
-                </div>
-            @endif
+            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg max-w-xl">
+                @include('components.delete-form', [
+    'title' => 'Delete Dispatcher',
+    'message' => 'Once dispatcher is deleted, all of its resources and data will be permanently deleted.',
+    'route' => route('dispatchers.destroy', $dispatcher)])
+            </div>
 
         </div>
     </div>

@@ -9,18 +9,17 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                 <div class="max-w-xl">
-                    @include('driver.partials.update-form')
+                    @include('driver.partials.form', ['route' => route('drivers.update', $driver), 'method' => 'patch'])
                 </div>
             </div>
-
-            @if($driver->loads()->count() < 1)
-                <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                    <div class="max-w-xl">
-                        @include('driver.partials.delete-form')
-                    </div>
+            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                <div class="max-w-xl">
+                    @include('components.delete-form', [
+    'title' => 'Delete Driver',
+    'message' => 'Once driver is deleted, all of its resources and data will be permanently deleted.',
+    'route' => route('drivers.destroy', $driver)])
                 </div>
-            @endif
-
+            </div>
         </div>
     </div>
 </x-app-layout>

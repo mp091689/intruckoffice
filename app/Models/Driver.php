@@ -12,9 +12,9 @@ class Driver extends Model
 
     protected $guarded = [];
 
-    public function loads(): HasMany
+    public function works(): HasMany
     {
-        return $this->hasMany(Load::class);
+        return $this->hasMany(Work::class);
     }
 
     public function fullName(): string

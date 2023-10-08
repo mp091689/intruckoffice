@@ -24,7 +24,7 @@ class DriverController extends Controller
      */
     public function create(): View
     {
-        return view('driver.create');
+        return view('driver.create', ['driver' => new Driver()]);
     }
 
     /**
@@ -61,8 +61,11 @@ class DriverController extends Controller
      */
     public function destroy(Driver $driver): RedirectResponse
     {
-        if ($driver->loads()->count()) {
-            return Redirect::back()->with('flash', ['status' => 'fail', 'text' => 'Driver can\'t be deleted.']);
+        if ($driver->works()->count()) {
+            return Redirect::back()->with('flash', [
+                'status' => 'fail',
+                'text' => 'Driver has related works. Deletion can\'t be executed.'
+            ]);
         }
 
         $driver->delete();

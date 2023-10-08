@@ -1,30 +1,34 @@
 <section class="space-y-6">
     <header>
         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-            {{ __('Delete Driver') }}
+            {{ __($title) }}
         </h2>
 
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            {{ __('Once driver is deleted, all of its resources and data will be permanently deleted.') }}
+            {{ __($message) }}
         </p>
     </header>
 
     <x-danger-button
-        x-data=""
-        x-on:click.prevent="$dispatch('open-modal', 'confirm-driver-deletion')"
+            x-data=""
+            x-on:click.prevent="$dispatch('open-modal', 'confirm-deletion-{{md5($route)}}')"
     >{{ __('Delete') }}</x-danger-button>
 
-    <x-modal name="confirm-driver-deletion" :show="$errors->driverDeletion->isNotEmpty()" focusable>
-        <form method="post" action="{{ route('drivers.destroy', ['driver' => $driver]) }}" class="p-6">
+    @if($errors->count())
+        @dd($errors->deletion)
+    @endif
+
+    <x-modal name="confirm-deletion-{{md5($route)}}" :show="$errors->deletion->isNotEmpty()" focusable>
+        <form method="post" action="{{ $route }}" class="p-6">
             @csrf
             @method('delete')
 
             <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                {{ __('Are you sure you want to delete driver?') }}
+                {{ __('Are you sure you want to delete entity?') }}
             </h2>
 
             <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                {{ __('Once driver is deleted, all of its resources and data will be permanently deleted.') }}
+                {{ __($message) }}
             </p>
 
             <div class="mt-6 flex justify-end">

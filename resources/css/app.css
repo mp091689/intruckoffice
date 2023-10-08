@@ -6,16 +6,16 @@
     @apply bg-sky-50 dark:bg-sky-950 dark:bg-opacity-70 bg-opacity-70
 }
 
-.load-card.paid {
+.load-card.invoiced {
+    @apply bg-gray-50 dark:bg-gray-950 dark:bg-opacity-70 bg-opacity-70
+}
+
+.load-card.completed {
     @apply bg-teal-50 dark:bg-teal-950 dark:bg-opacity-70 bg-opacity-70
 }
 
-.load-card.delivered {
-    @apply bg-yellow-50 dark:bg-yellow-950 dark:bg-opacity-70 bg-opacity-70
-}
-
 .load-card.canceled {
-    @apply bg-pink-50 dark:bg-pink-950 dark:bg-opacity-50 bg-opacity-70
+    @apply bg-red-50 dark:bg-red-950 dark:bg-opacity-50 bg-opacity-70
 }
 
 .flash-message.success {
