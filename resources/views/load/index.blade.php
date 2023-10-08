@@ -12,7 +12,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             @foreach ($loads as $load)
-                <div class="load-card p-2 overflow-hidden shadow-sm sm:rounded-lg text-gray-900 dark:text-gray-100 {{ $load->status }}"
+                <div class="load-card p-2 overflow-hidden shadow-sm sm:rounded-lg text-gray-900 dark:text-gray-100 {{ $load->status->value }}"
                      x-data="{ executionOpen: false }">
                     <div class="grid gap-2 sm:grid-cols-3 text-sm sm:text-md justify-items-center items-center">
                         <div class="text-center w-full">

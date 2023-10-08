@@ -18,13 +18,7 @@ class LoadController extends Controller
     {
         $loads = Load::with('works')
             ->get()
-            ->sortByDesc('pickup_datetime')
-            ->sortBy(function (Load $load) {
-                return match ($load->status) {
-                    LoadStatus::IN_PROGRESS => 1,
-                    LoadStatus::COMPLETED, LoadStatus::CANCELED => 2,
-                };
-            });
+            ->sortByDesc('pickup_datetime');
 
         return view('load.index', ['loads' => $loads]);
     }
