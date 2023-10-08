@@ -16,7 +16,7 @@ return new class extends Migration {
             DB::table('works')->insert([
                 'driver_id' => $row->driver_id,
                 'load_id' => $row->id,
-                'distance' => $row->distance,
+                'distance' => $row->actual_distance,
                 'percent' => $row->percentage,
                 'status' => WorkStatus::COMPLETED->value,
             ]);
@@ -25,7 +25,7 @@ return new class extends Migration {
                 DB::table('works')->insert([
                     'driver_id' => $row->driver2_id,
                     'load_id' => $row->id,
-                    'distance' => $row->distance,
+                    'distance' => $row->actual_distance,
                     'percent' => $row->percentage2,
                     'status' => WorkStatus::COMPLETED->value,
                 ]);
