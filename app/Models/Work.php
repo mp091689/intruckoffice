@@ -29,8 +29,7 @@ class Work extends Model
     public function price(): string
     {
         $percent = bcdiv($this->percent, 100, 2);
-        $pricePerMile = bcdiv($this->theLoad->actual_price, $this->theLoad->actual_distance, 2);
-        $workPrice = bcmul($pricePerMile, $this->distance, 2);
+        $workPrice = bcmul($this->theLoad->pricePerMile(), $this->distance, 2);
 
         return ceil(bcmul($workPrice, $percent, 2));
     }

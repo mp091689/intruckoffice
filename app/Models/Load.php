@@ -28,4 +28,13 @@ class Load extends Model
     {
         return $this->belongsTo(Dispatcher::class);
     }
+
+    public function pricePerMile(): string
+    {
+        if ($this->actual_price == 0 || $this->actual_distance == 0) {
+            return 0;
+        }
+
+        return bcdiv($this->actual_price, $this->actual_distance, 2);
+    }
 }

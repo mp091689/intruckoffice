@@ -22,7 +22,7 @@
                         <div class="text-center w-full">
                             <p class="underline font-bold">{{ $load->dispatcher?->name }}</p>
                             <p>$ {{ $load->actual_price }} / {{ $load->actual_distance }} mi
-                                = {{ number_format($load->actual_price/$load->actual_distance, 2) }} $pm</p>
+                                = {{ $load->pricePerMile() }} $pm</p>
                         </div>
                         <div class="grid sm:grid-cols-1 gap-2">
                             <x-button-link
