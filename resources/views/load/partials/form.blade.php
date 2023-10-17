@@ -90,7 +90,7 @@
         <x-input-label for="status" :value="__('Status')" />
         <x-select id="status" name="status" class="mt-1 block w-full">
             @foreach(\App\Models\LoadStatus::values() as $status)
-                <option value="{{ $status }}" {{ old('status', $load->status->value) == $status ? 'selected' : '' }}>{{ Str::of($status)->snake()->replace('_', ' ')->title() }}</option>
+                <option value="{{ $status }}" {{ old('status', $load->status?->value) == $status ? 'selected' : '' }}>{{ Str::of($status)->snake()->replace('_', ' ')->title() }}</option>
             @endforeach
         </x-select>
         <x-input-error class="mt-2" :messages="$errors->get('status')" />
