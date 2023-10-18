@@ -1,4 +1,4 @@
-<section class="space-y-6">
+<section class="space-y-4">
     <header>
         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
             {{ __($title) }}
@@ -31,7 +31,7 @@
                 {{ __($message) }}
             </p>
 
-            <div class="mt-6 flex justify-end">
+            <div class="mt-4 flex justify-end">
                 <x-secondary-button x-on:click="$dispatch('close')">
                     {{ __('Cancel') }}
                 </x-secondary-button>

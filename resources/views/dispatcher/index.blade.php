@@ -7,10 +7,10 @@
             <x-button-link :href="route('dispatchers.create')">{{  __('Add Dispatcher') }}</x-button-link>
         </div>
     </x-slot>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+    <div class="py-4">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-4">
             @foreach ($dispatchers as $dispatcher)
-                <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg  overflow-hidden text-gray-900 dark:text-gray-100">
+                <div class="p-4 bg-white dark:bg-gray-800 shadow sm:rounded-lg  overflow-hidden text-gray-900 dark:text-gray-100">
                     <div class="grid gap-4 sm:grid-cols-4 text-sm sm:text-md justify-items-center items-center">
                         <p>{{ $dispatcher->name }}</p>
                         <x-button-link

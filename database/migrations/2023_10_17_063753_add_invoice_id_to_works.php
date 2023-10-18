@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('loads', function (Blueprint $table) {
-            $table->foreignId('driver_id')->nullable();
-            $table->foreignId('driver2_id')->nullable();
+        Schema::table('works', function (Blueprint $table) {
+            $table->foreignId('invoice_id')->nullable();
         });
     }
 
@@ -22,9 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('loads', function (Blueprint $table) {
-            $table->dropColumn('driver_id');
-            $table->dropColumn('driver2_id');
+        Schema::table('works', function (Blueprint $table) {
+            $table->dropColumn('invoice_id');
         });
     }
 };

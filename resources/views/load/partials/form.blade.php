@@ -1,4 +1,4 @@
-<form method="post" action="{{ $route }}" class="mt-6 space-y-6">
+<form method="post" action="{{ $route }}" class="mt-4 space-y-4">
     @csrf
     @method($method)
 
@@ -65,7 +65,7 @@
     <div class="grid grid-cols-2 gap-4">
         <div>
             <x-input-label for="estimated_price" :value="__('Estimated Price')" />
-            <x-text-input id="estimated_price" name="estimated_price" type="text" class="mt-1 block w-full" required
+            <x-text-input id="estimated_price" name="estimated_price" type="number" class="mt-1 block w-full" required
                           autofocus
                           :value="old('estimated_price', $load->estimated_price)" />
             <x-input-error class="mt-2" :messages="$errors->get('estimated_price')" />
@@ -73,7 +73,7 @@
 
         <div>
             <x-input-label for="actual_price" :value="__('Actual Price')" />
-            <x-text-input id="actual_price" name="actual_price" type="text" class="mt-1 block w-full" required autofocus
+            <x-text-input id="actual_price" name="actual_price" type="number" class="mt-1 block w-full" required autofocus
                           :value="old('actual_price', $load->actual_price)" />
             <x-input-error class="mt-2" :messages="$errors->get('actual_price')" />
         </div>

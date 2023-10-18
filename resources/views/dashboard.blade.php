@@ -5,10 +5,10 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+    <div class="py-4">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-4">
 
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+            <div class="p-4 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                 <p class="text-gray-900 dark:text-gray-100 text-lg">{{ __("Loads by Dispatchers") }}</p>
                 <p class="text-gray-900 dark:text-gray-400 text-sm">{{ __("Step one month") }}</p>
                 <div id="chart_div" class="w-full h-96"></div>
@@ -23,12 +23,12 @@
             @role('admin')
 
             @if($logs)
-                <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                <div class="p-4 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                     <x-text-area class="w-full" rows="10">{{ $logs }}</x-text-area>
                 </div>
             @endif
 
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+            <div class="p-4 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                 @include('migrations.migrate')
             </div>
             @endrole

@@ -16,7 +16,9 @@ class DriverController extends Controller
      */
     public function index(): View
     {
-        return view('driver.index', ['drivers' => Driver::all()->sortBy('first_name')]);
+        $drivers = Driver::with(['invoices', 'uninvoicedWorks'])->get()->sortBy('first_name');
+
+        return view('driver.index', ['drivers' => $drivers]);
     }
 
     /**
@@ -36,6 +38,14 @@ class DriverController extends Controller
         $driver->save();
 
         return Redirect::route('drivers.index')->with('flash', ['status' => 'success', 'text' => 'Driver created.']);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Driver $driver)
+    {
+        return view('driver.show', ['driver' => $driver]);
     }
 
     /**
@@ -64,7 +74,7 @@ class DriverController extends Controller
         if ($driver->works()->count()) {
             return Redirect::back()->with('flash', [
                 'status' => 'fail',
-                'text' => 'Driver has related works. Deletion can\'t be executed.'
+                'text' => 'Driver has related works. Deletion can\'t be executed.',
             ]);
         }
 

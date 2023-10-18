@@ -39,8 +39,15 @@ class LoadController extends Controller
         return Redirect::route('loads.index')->with('flash', ['status' => 'success', 'text' => 'Load created.']);
     }
 
-    public function edit(Load $load): View
+    public function edit(Load $load)
     {
+        if ($load->invoices()->count()) {
+            return Redirect::route('loads.index')->with('flash', [
+                'status' => 'warning',
+                'text' => 'Load has posted invoices. Load can\'t be edited.' ,
+            ]);
+        }
+
         return view('load.edit', [
             'load' => $load,
             'drivers' => Driver::all()->sortBy('first_name'),
@@ -50,6 +57,13 @@ class LoadController extends Controller
 
     public function update(UpdateLoadRequest $request, Load $load): RedirectResponse
     {
+        if ($load->invoices()->count()) {
+            return Redirect::back()->with('flash', [
+                'status' => 'fail',
+                'text' => 'Load has posted invoices. Load can\'t be updated.' ,
+            ]);
+        }
+
         $load->update($request->validated());
 
         return Redirect::back()->with('flash', ['status' => 'success', 'text' => 'Load data updated.']);
@@ -60,7 +74,7 @@ class LoadController extends Controller
         if ($load->works()->count()) {
             return Redirect::back()->with('flash', [
                 'status' => 'fail',
-                'text' => 'Load has related works. Deletion can\'t be executed.',
+                'text' => 'Load has related works. Load can\'t be deleted.' ,
             ]);
         }
 

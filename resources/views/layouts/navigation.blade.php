@@ -24,6 +24,9 @@
                     <x-nav-link :href="route('drivers.index')" :active="request()->routeIs('drivers.index')">
                         {{ __('Drivers') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('invoices.index')" :active="request()->routeIs('invoices.index')">
+                        {{ __('Invoices') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -97,6 +100,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('drivers.index')" :active="request()->routeIs('drivers.index')">
                 {{ __('Drivers') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('invoices.index')" :active="request()->routeIs('invoices.index')">
+                {{ __('Invoices') }}
             </x-responsive-nav-link>
         </div>
 

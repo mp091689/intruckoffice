@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DispatcherController;
 use App\Http\Controllers\DriverController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LoadController;
 use App\Http\Controllers\MigrationController;
 use App\Http\Controllers\ProfileController;
@@ -27,8 +28,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('/dispatchers', DispatcherController::class)->except(['show']);
     Route::resource('/loads', LoadController::class)->except('show');
-    Route::resource('/drivers', DriverController::class)->except('show');
+    Route::resource('/drivers', DriverController::class);
     Route::resource('/works', WorkController::class)->except(['index', 'show']);
+    Route::resource('/invoices', InvoiceController::class)->except(['create']);
+    Route::get('/drivers/{driver}/invoices/create', [InvoiceController::class, 'create'])
+        ->name('drivers.invoices.create');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {

@@ -9,8 +9,8 @@
             </div>
         </div>
     </x-slot>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+    <div class="py-4">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-4">
             @foreach ($loads as $load)
                 <div class="load-card p-2 overflow-hidden shadow-sm sm:rounded-lg text-gray-900 dark:text-gray-100 {{ $load->status->value }}"
                      x-data="{ executionOpen: false }">
@@ -24,9 +24,16 @@
                             <p>$ {{ $load->actual_price }} / {{ $load->actual_distance }} mi
                                 = {{ $load->pricePerMile() }} $pm</p>
                         </div>
-                        <div class="grid sm:grid-cols-1 gap-2">
-                            <x-button-link
-                                    :href="route('loads.edit', ['load' => $load])">{{  __('Edit') }}</x-button-link>
+                        <div class="grid sm:grid-cols-1 gap-2 text-center">
+                            @if($load->invoices()->count())
+                                <div>
+                                    <p>Have invoices</p>
+                                    <p>Can't be edited</p>
+                                </div>
+                            @else
+                                <x-button-link
+                                        :href="route('loads.edit', ['load' => $load])">{{  __('Edit') }}</x-button-link>
+                            @endif
                             <x-primary-button type="button" @click="executionOpen = !executionOpen">
                                 <div :class="{'rotate-180': !executionOpen,' -translate-y-0.0': executionOpen }">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Load extends Model
@@ -36,5 +37,20 @@ class Load extends Model
         }
 
         return bcdiv($this->actual_price, $this->actual_distance, 2);
+    }
+
+    public function shortTitle(): string
+    {
+        return $this->pickup_datetime->format('m/d/Y') . ' ' . $this->pickup_address . ' -> ' . $this->dropoff_address;
+    }
+
+    public function invoices(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Invoice::class,
+            'works',
+            'load_id',
+            'invoice_id'
+        )->distinct();
     }
 }
