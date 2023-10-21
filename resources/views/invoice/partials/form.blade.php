@@ -15,7 +15,7 @@
                 {{  __('Customize Invoice') }}
             </x-primary-button>
         </div>
-        <div x-show="worksOpen" class="p-4 space-y-2 bg-gray-700">
+        <div x-show="worksOpen" class="p-4 space-y-2 bg-gray-700" style="display: none;">
             @foreach($works as $work)
                 <div>
                     <x-input-label class="inline-block">

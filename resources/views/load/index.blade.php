@@ -46,7 +46,7 @@
                             </x-primary-button>
                         </div>
                     </div>
-                    <div x-show="executionOpen" class="pt-4 space-y-2">
+                    <div x-show="executionOpen" class="pt-4 space-y-2" style="display: none;">
                         @include('work.partials.list')
                     </div>
                 </div>

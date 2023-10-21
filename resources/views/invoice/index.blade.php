@@ -27,9 +27,8 @@
                         <div class=text-center">{{ $invoice->created_at }}</div>
                         <div>$ {{ $invoice->total }}</div>
                     </div>
-                    <div x-show="invoiceOpen" class="pt-4 space-y-2">
-                       <pre x-show="invoiceOpen"
-                            class="m-2 p-4 bg-gray-700 whitespace-pre-wrap">{!! $invoice->generated_log !!}</pre>
+                    <div x-show="invoiceOpen" class="pt-4 space-y-2" style="display: none;">
+                       <pre class="m-2 p-4 bg-gray-700 whitespace-pre-wrap">{!! $invoice->generated_log !!}</pre>
                     </div>
                 </div>
             @endforeach

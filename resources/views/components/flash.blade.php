@@ -2,6 +2,7 @@
         <p
                 x-data="{ show: true }"
                 x-show="show"
+                style="display: none;"
                 x-transition
                 x-transition:leave.duration.1000ms
                 x-init="setTimeout(() => show = false, 3000)"
@@ -17,5 +18,6 @@
                 x-transition:leave.duration.1000ms
                 x-init="setTimeout(() => show = false, 3000)"
                 class="flash-message text-white dark:text-white fixed w-full z-10 p-4 bottom-0 fail"
+                style="display: none;"
         >{{ __('Check validation errors.') }}</p>
 @endif

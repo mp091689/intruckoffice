@@ -40,7 +40,8 @@ class InvoiceController extends Controller
         $works = $driver->works()
             ->with('theLoad')
             ->whereDoesntHave('invoice')
-            ->get();
+            ->get()
+            ->sortByDesc(fn ($query) => $query->theLoad->pickup_datetime);
 
         if ($works->count() === 0) {
             return Redirect::back()->with('flash', ['status' => 'warning', 'text' => __('No works to be invoiced.')]);
@@ -77,30 +78,6 @@ class InvoiceController extends Controller
         }
 
         return Redirect::route('invoices.index')->with('flash', ['status' => 'success', 'text' => 'Invoice generated.']);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Invoice $invoices)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Invoice $invoices)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateInvoiceRequest $request, Invoice $invoices)
-    {
-        //
     }
 
     /**
