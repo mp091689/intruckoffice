@@ -34,6 +34,8 @@ class LoadController extends Controller
     public function store(StoreLoadRequest $request): RedirectResponse
     {
         $load = new Load($request->validated());
+        $load->actual_price = $load->estimated_price;
+        $load->actual_distance = $load->estimated_distance;
         $load->save();
 
         return Redirect::route('loads.index')->with('flash', ['status' => 'success', 'text' => 'Load created.']);

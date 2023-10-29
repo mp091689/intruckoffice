@@ -31,9 +31,9 @@ class StoreLoadRequest extends FormRequest
             'dropoff_datetime' => ['required', 'date', 'min:5'],
             'dispatcher_id' => ['required', 'exists:dispatchers,id'],
             'estimated_price' => ['required', 'numeric', 'max_digits:10'],
-            'actual_price' => ['required', 'numeric', 'max_digits:10'],
             'estimated_distance' => ['required', 'integer', 'max_digits:10'],
-            'actual_distance' => ['required', 'integer', 'max_digits:10'],
+            'actual_price' => ['numeric', 'max_digits:10'],
+            'actual_distance' => ['integer', 'max_digits:10'],
             'description' => [],
         ];
 
