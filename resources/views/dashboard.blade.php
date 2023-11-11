@@ -21,7 +21,6 @@
             </div>
 
             @role('admin')
-
             @if($logs)
                 <div class="p-4 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                     <x-text-area class="w-full" rows="10">{{ $logs }}</x-text-area>
