@@ -22,12 +22,4 @@ return new class extends Migration
             $table->softDeletes();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        // never delete this table
-    }
 };

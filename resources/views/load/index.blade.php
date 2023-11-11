@@ -12,8 +12,16 @@
     <div class="py-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-4">
             @foreach ($loads as $load)
-                <div class="load-card p-2 overflow-hidden shadow-sm sm:rounded-lg text-gray-900 dark:text-gray-100 {{ $load->status->value }}"
-                     x-data="{ executionOpen: false }">
+                <div id="load-{{ $load->id }}"
+                     class="load-card p-2 overflow-hidden shadow-sm sm:rounded-lg text-gray-900 dark:text-gray-100 {{ $load->status->value }}"
+                     :class="{ 'anchor': worksOpen }"
+                     x-data="{
+                        worksOpen: false,
+                        init() {
+                            this.worksOpen = window.location.hash === '#load-{{ $load->id }}'
+                        },
+                        get isWorksOpen() { return this.worksOpen }
+                     }">
                     <div class="grid gap-2 sm:grid-cols-3 text-sm sm:text-md justify-items-center items-center">
                         <div class="text-center w-full">
                             <p>{{ $load->pickup_address }} {{ $load->pickup_datetime->format('m/d/y H:i') }} -></p>
@@ -34,19 +42,19 @@
                                 <x-button-link
                                         :href="route('loads.edit', ['load' => $load])">{{  __('Edit') }}</x-button-link>
                             @endif
-                            <x-primary-button type="button" @click="executionOpen = !executionOpen">
-                                <div :class="{'rotate-180': !executionOpen,' -translate-y-0.0': executionOpen }">
+                            <x-primary-button type="button" @click="worksOpen = !worksOpen">
+                                <div :class="{'rotate-180': !worksOpen,' -translate-y-0.0': worksOpen }">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                          stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                               d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                     </svg>
                                 </div>
-                                {{  __('Execution') }}
+                                {{  __('Works') }}
                             </x-primary-button>
                         </div>
                     </div>
-                    <div x-show="executionOpen" class="pt-4 space-y-2" style="display: none;">
+                    <div x-show="isWorksOpen" class="pt-4 space-y-2" style="display: none;">
                         @include('work.partials.list')
                     </div>
                 </div>

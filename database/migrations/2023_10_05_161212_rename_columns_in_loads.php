@@ -16,15 +16,4 @@ return new class extends Migration
             $table->renameColumn('distance', 'estimated_distance');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::table('loads', function (Blueprint $table) {
-            $table->renameColumn('estimated_price', 'price');
-            $table->renameColumn('estimated_distance', 'distance');
-        });
-    }
 };

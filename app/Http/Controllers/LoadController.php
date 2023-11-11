@@ -20,7 +20,10 @@ class LoadController extends Controller
             ->get()
             ->sortByDesc('pickup_datetime');
 
-        return view('load.index', ['loads' => $loads]);
+        return view('load.index', [
+            'loads' => $loads,
+            'drivers' => Driver::all(),
+        ]);
     }
 
     public function create(): View
@@ -68,7 +71,9 @@ class LoadController extends Controller
 
         $load->update($request->validated());
 
-        return Redirect::back()->with('flash', ['status' => 'success', 'text' => 'Load data updated.']);
+        return Redirect::route('loads.index')
+            ->withFragment('load-' . $load->id)
+            ->with('flash', ['status' => 'success', 'text' => 'Load data updated.']);
     }
 
     public function destroy(Load $load): RedirectResponse

@@ -15,14 +15,4 @@ return new class extends Migration {
             $table->enum('status', LoadStatus::values())->default(LoadStatus::IN_PROGRESS);
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::table('loads', function (Blueprint $table) {
-            $table->dropColumn('status');
-        });
-    }
 };

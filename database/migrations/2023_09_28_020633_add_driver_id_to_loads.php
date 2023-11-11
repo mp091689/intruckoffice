@@ -16,15 +16,4 @@ return new class extends Migration
             $table->foreignId('driver2_id')->nullable();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::table('loads', function (Blueprint $table) {
-            $table->dropColumn('driver_id');
-            $table->dropColumn('driver2_id');
-        });
-    }
 };

@@ -15,14 +15,4 @@ return new class extends Migration
             $table->integer('percentage2')->default(0);
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::table('loads', function (Blueprint $table) {
-            $table->dropColumn('percentage2');
-        });
-    }
 };

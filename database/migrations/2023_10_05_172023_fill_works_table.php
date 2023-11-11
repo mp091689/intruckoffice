@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\WorkStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 
@@ -18,7 +17,6 @@ return new class extends Migration {
                 'load_id' => $row->id,
                 'distance' => $row->actual_distance,
                 'percent' => $row->percentage,
-                'status' => WorkStatus::COMPLETED->value,
             ]);
 
             if ($row->driver2_id) {
@@ -27,17 +25,8 @@ return new class extends Migration {
                     'load_id' => $row->id,
                     'distance' => $row->actual_distance,
                     'percent' => $row->percentage2,
-                    'status' => WorkStatus::COMPLETED->value,
                 ]);
             }
         }
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        //
     }
 };

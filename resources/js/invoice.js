@@ -37,7 +37,8 @@ class Invoice {
 
         this.$works.each(function () {
             if (this.checked) {
-                generatedLog += $(this).data('title') + ' - $ ' + $(this).data('price') + '\n';
+                console.log(this)
+                generatedLog += $(this).data('title') + ' - $' + $(this).data('price') + '\n';
                 total = Number(total) + Number($(this).data('price'));
             }
         });

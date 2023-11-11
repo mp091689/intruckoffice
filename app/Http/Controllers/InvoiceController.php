@@ -43,10 +43,6 @@ class InvoiceController extends Controller
             ->get()
             ->sortByDesc(fn ($query) => $query->theLoad->pickup_datetime);
 
-        if ($works->count() === 0) {
-            return Redirect::back()->with('flash', ['status' => 'warning', 'text' => __('No works to be invoiced.')]);
-        }
-
         $invoiceNo = 'ITO-' . time() . PHP_EOL . PHP_EOL;
         $billedTo = 'Billed to:' . PHP_EOL . $driver->fullName() . PHP_EOL . '+1 ' . $driver->phone;
 

@@ -1,13 +1,19 @@
 <section class="space-y-4">
-    <header>
-        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-            {{ __($title) }}
-        </h2>
+    @if($title || $message)
+        <header>
+            @if($title)
+                <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                    {{ __($title) }}
+                </h2>
+            @endif
 
-        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            {{ __($message) }}
-        </p>
-    </header>
+            @if($message)
+                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                    {{ __($message) }}
+                </p>
+            @endif
+        </header>
+    @endif
 
     <x-danger-button
             x-data=""

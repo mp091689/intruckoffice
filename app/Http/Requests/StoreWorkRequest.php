@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Models\WorkStatus;
+use App\Models\WorkType;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -26,10 +26,9 @@ class StoreWorkRequest extends FormRequest
         return [
             'load_id' => ['required', 'exists:loads,id'],
             'driver_id' => ['required', 'exists:drivers,id'],
-            'distance' => ['required', 'integer', 'max_digits:10'],
-            'percent' => ['required', 'integer', 'max:100', 'min:0'],
-            'description' => [],
-            'status' => ['required', Rule::in(WorkStatus::values())],
+            'type' => ['required', Rule::in(WorkType::values())],
+            'duration' => ['required', 'integer', 'max_digits:10'],
+            'quota' => ['required', 'integer', 'max:100', 'min:0'],
         ];
     }
 }

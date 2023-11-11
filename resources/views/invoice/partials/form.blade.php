@@ -18,16 +18,17 @@
         <div x-show="worksOpen" class="p-4 space-y-2 bg-gray-700" style="display: none;">
             @foreach($works as $work)
                 <div>
-                    <x-input-label class="inline-block">
-                        <x-text-input :id="'work-id-' . $work->id"
-                                      type="checkbox"
-                                      class="mr-2"
-                                      name="work_ids[]"
-                                      :data-title="$work->theLoad->shortTitle()"
-                                      :data-price="$work->price()"
-                                      :value="$work->id"
-                                      checked />
-                        {{ $work->theLoad->shortTitle() }} - <span class="text-green-200">$ {{ $work->price() }}</span>
+                                    <x-input-label class="inline-block">
+                                        <x-text-input :id="'work-id-' . $work->id"
+                                                      type="checkbox"
+                                                      class="mr-2"
+                                                      name="work_ids[]"
+                                                      :data-title="$work->getInvoiceTitle()"
+                                                      :data-price="$work->getQuota()"
+                                                      :value="$work->id"
+                                                      checked />
+                                        {{ $work->getInvoiceTitle() }} - <span
+                                class="text-green-200">${{ $work->getQuota() }}</span>
                     </x-input-label>
                 </div>
             @endforeach

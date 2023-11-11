@@ -23,14 +23,4 @@ return new class extends Migration
                 ->update(['actual_price' => $row->estimated_price]);
         }
     }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::table('loads', function (Blueprint $table) {
-            $table->dropColumn('actual_price');
-        });
-    }
 };

@@ -20,7 +20,7 @@ class DashboardController extends Controller
         }
 
         $months = Load::all()->groupBy(function ($row) {
-            return $row->pickup_datetime->format('m');
+            return $row->pickup_datetime->format('W');
         });
 
         return view('dashboard', [

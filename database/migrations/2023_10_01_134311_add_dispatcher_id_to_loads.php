@@ -16,14 +16,4 @@ return new class extends Migration
 
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::table('loads', function (Blueprint $table) {
-            $table->dropForeign('dispatcher_id');
-        });
-    }
 };

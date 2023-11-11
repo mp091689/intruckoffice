@@ -37,7 +37,9 @@ class WorkController extends Controller
         $work = new Work($request->validated());
         $work->save();
 
-        return Redirect::route('loads.index')->with('flash', ['status' => 'success', 'text' => 'Work created.']);
+        return Redirect::route('loads.index')
+            ->withFragment('load-' . $work->load_id)
+            ->with('flash', ['status' => 'success', 'text' => 'Work created.']);
     }
 
     /**
@@ -93,6 +95,8 @@ class WorkController extends Controller
 
         $work->delete();
 
-        return Redirect::route('loads.index')->with('flash', ['status' => 'success', 'text' => 'Work deleted.']);
+        return Redirect::route('loads.index')
+            ->withFragment('load-' . $work->load_id)
+            ->with('flash', ['status' => 'success', 'text' => 'Work deleted.']);
     }
 }

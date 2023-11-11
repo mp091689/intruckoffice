@@ -23,14 +23,4 @@ return new class extends Migration
                 ->update(['actual_distance' => $row->estimated_distance]);
         }
     }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::table('loads', function (Blueprint $table) {
-            $table->dropColumn('actual_distance');
-        });
-    }
 };

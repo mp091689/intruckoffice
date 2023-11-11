@@ -6,28 +6,13 @@ function drawChart() {
     var data = new google.visualization.DataTable();
 
     data.addColumn('number', 'Month');
-    Object.entries(dispatchers).forEach(([key, value]) => {
-        data.addColumn('number', value.name);
-    });
+    data.addColumn('number', 'Gross');
 
     let result = [];
-    Object.entries(groupedLoads).forEach(([monthNumber, loads]) => {
-
-        if (!result[monthNumber]) {
-            result[monthNumber] = [];
-            result[monthNumber][0] = Number(monthNumber);
-        }
-
-        Object.entries(dispatchers).forEach(([key, value]) => {
-            if (!result[monthNumber][value.id]) {
-                result[monthNumber][value.id] = 0;
-            }
-        });
-
-        Object.entries(loads).forEach(([key, load]) => {
-            result[monthNumber][load.dispatcher_id]++;
-        });
-
+    Object.entries(groupedLoads).forEach(([groupIdx, loads]) => {
+        result[groupIdx] = [];
+        result[groupIdx][0] = Number(groupIdx);
+        result[groupIdx].push(loads.reduce((n, { actual_price }) => n + Number(actual_price), 0));
     });
 
     let compactArray = [];
@@ -61,7 +46,7 @@ function drawChart() {
             },
         },
         legend: {
-            position: 'top',
+            position: 'none',
             textStyle: { color: '#9ca3af' },
             maxLines: 4,
         },
