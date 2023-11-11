@@ -9,6 +9,7 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/charts.js',
                 'resources/js/invoice.js',
+                'resources/js/work.js',
             ],
             refresh: true,
         }),
