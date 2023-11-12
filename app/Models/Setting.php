@@ -13,4 +13,9 @@ use Illuminate\Database\Eloquent\Model;
 class Setting extends Model
 {
     use HasFactory;
+
+    public static function get(string $name): string
+    {
+        return static::where('name', $name)->firstOrFail()->value;
+    }
 }
