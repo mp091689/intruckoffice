@@ -1,3 +1,18 @@
+import $ from 'jquery';
+
+$(function () {
+    $.ajax({
+        type: 'GET',
+        url: '/ajax/address/zip/12345',
+        success: data =>  {
+            console.log(data);
+        },
+        error: msg => {
+            console.log(msg);
+        },
+    });
+});
+
 google.charts.load('current', { 'packages': ['corechart'] });
 google.charts.setOnLoadCallback(drawChart);
 

@@ -8,6 +8,7 @@ use App\Models\Dispatcher;
 use App\Models\Driver;
 use App\Models\Load;
 use App\Models\LoadStatus;
+use App\Services\Address;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
@@ -34,11 +35,15 @@ class LoadController extends Controller
         ]);
     }
 
-    public function store(StoreLoadRequest $request): RedirectResponse
+    public function store(StoreLoadRequest $request, Address $address): RedirectResponse
     {
         $load = new Load($request->validated());
+
+        $load->fillAddresses($address);
+
         $load->actual_price = $load->estimated_price;
         $load->actual_distance = $load->estimated_distance;
+
         $load->save();
 
         return Redirect::route('loads.index')->with('flash', ['status' => 'success', 'text' => 'Load created.']);
@@ -60,7 +65,7 @@ class LoadController extends Controller
         ]);
     }
 
-    public function update(UpdateLoadRequest $request, Load $load): RedirectResponse
+    public function update(UpdateLoadRequest $request, Load $load, Address $address): RedirectResponse
     {
         if ($load->invoices()->count()) {
             return Redirect::back()->with('flash', [
@@ -69,7 +74,9 @@ class LoadController extends Controller
             ]);
         }
 
-        $load->update($request->validated());
+        $load->fill($request->validated());
+        $load->fillAddresses($address);
+        $load->save();
 
         return Redirect::route('loads.index')
             ->withFragment('load-' . $load->id)

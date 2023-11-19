@@ -73,12 +73,14 @@ class Work extends Model
 
     public function getInvoiceTitle(): string
     {
-        $puDate = $this->theLoad->pickup_datetime->format('m/d/Y') . ' ' . ucfirst($this->type->value);
+        $type = ucfirst($this->type->value);
+        $puDate = $this->theLoad->pickup_datetime->format('m/d');
+        $doDate = $this->theLoad->dropoff_datetime->format('m/d');
 
         if ($this->type === WorkType::DELIVERY) {
-            return $puDate . ' ' . $this->theLoad->pickup_address . ' -> ' . $this->theLoad->dropoff_address;
+            return "$puDate-$doDate {$this->theLoad->pickup_state}-{$this->theLoad->dropoff_state} $type";
         }
 
-        return $puDate;
+        return "$puDate {$this->theLoad->pickup_state} $type";
     }
 }

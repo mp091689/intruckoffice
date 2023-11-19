@@ -39,4 +39,4 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/migrate', [MigrationController::class, 'migrate'])->name('db.migrate');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
