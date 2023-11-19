@@ -25,7 +25,7 @@ class StoreLoadRequest extends FormRequest
      */
     public function rules(): array
     {
-        $updateStatusLoadRequest = new UpdateStatusLoadRequest();
+        $updateStatusLoadRequest = new LoadStatusRequest();
 
         $rules = [
             'pickup_zip' => ['required', 'regex:' . Address::REGEX_ZIP],

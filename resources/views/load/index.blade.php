@@ -24,37 +24,40 @@
                      }">
                     <div class="grid gap-2 sm:grid-cols-3 text-sm sm:text-md justify-items-center items-center">
                         <div class="text-center w-full">
-                            <p>{{ $load->pickup_datetime->format('m/d/Y') }} -> {{ $load->dropoff_datetime->format('m/d/Y') }}</p>
-                            <p>{{ $load->pickup_state }} ({{ $load->pickup_city }}) -> {{ $load->dropoff_state }} ({{ $load->dropoff_city }})</p>
+                            <p>{{ $load->pickup_datetime->format('m/d/Y') }}
+                                -> {{ $load->dropoff_datetime->format('m/d/Y') }}</p>
+                            <p>{{ $load->pickup_state }} ({{ $load->pickup_city }}) -> {{ $load->dropoff_state }}
+                                ({{ $load->dropoff_city }})</p>
                         </div>
                         <div class="text-center w-full">
-                            <p class="underline font-bold">{{ $load->dispatcher?->name }}</p>
+                            <p>{{ $load->dispatcher?->name }}</p>
                             <p>${{ $load->actual_price }} / {{ $load->actual_distance }} mi
                                 = {{ $load->pricePerMile() }} $pm</p>
                         </div>
-                        <div class="grid sm:grid-cols-1 gap-2 text-center">
+                        <div class="text-center">
                             @if($load->invoices()->count())
                                 <div>
                                     <p>Have invoices</p>
                                     <p>Can't be edited</p>
                                 </div>
                             @else
-                                <x-button-link
-                                        :href="route('loads.edit', ['load' => $load])">{{  __('Edit') }}</x-button-link>
-                            @endif
-                            <x-primary-button type="button" @click="worksOpen = !worksOpen">
-                                <div :class="{'rotate-180': !worksOpen,' -translate-y-0.0': worksOpen }">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                         stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                              d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                                    </svg>
+                                <div class="flex gap-2">
+                                    <x-button-link :href="route('loads.edit', ['load' => $load])">
+                                        {{  __('Edit') }}
+                                    </x-button-link>
+                                    @include('load.partials.quick-status-form', ['loadId' => $load->id])
                                 </div>
-                                {{  __('Works') }}
-                            </x-primary-button>
+                            @endif
                         </div>
                     </div>
-                    <div x-show="isWorksOpen" class="pt-4 space-y-2" style="display: none;">
+                    <div class="mt-2" @click="worksOpen = !worksOpen"
+                         :class="{'rotate-180': worksOpen,' -translate-y-0.0': !worksOpen }">
+                        <div class="border-t border-sky-700 w-1/2 mx-auto"></div>
+                        <div class="border-t border-sky-700 mt-0.5 w-1/3 mx-auto"></div>
+                        <div class="border-t border-sky-700 mt-0.5 w-1/5 mx-auto"></div>
+                        <div class="border-t border-sky-700 mt-0.5 w-1/12 mx-auto"></div>
+                    </div>
+                    <div x-show="isWorksOpen" class="-mt-3.5 pt-4 space-y-2" style="display: none;">
                         @include('work.partials.list')
                     </div>
                 </div>
