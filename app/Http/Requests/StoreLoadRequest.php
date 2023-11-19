@@ -3,11 +3,13 @@
 namespace App\Http\Requests;
 
 use App\Models\Load;
+use App\Services\Address;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class StoreLoadRequest extends FormRequest
 {
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -24,10 +26,11 @@ class StoreLoadRequest extends FormRequest
     public function rules(): array
     {
         $updateStatusLoadRequest = new UpdateStatusLoadRequest();
+
         $rules = [
-            'pickup_address' => ['required', 'string', 'min:5'],
+            'pickup_zip' => ['required', 'regex:' . Address::REGEX_ZIP],
             'pickup_datetime' => ['required', 'date'],
-            'dropoff_address' => ['required', 'string', 'min:5'],
+            'dropoff_zip' => ['required', 'regex:' . Address::REGEX_ZIP],
             'dropoff_datetime' => ['required', 'date', 'min:5'],
             'dispatcher_id' => ['required', 'exists:dispatchers,id'],
             'estimated_price' => ['required', 'numeric', 'max_digits:10'],
@@ -48,5 +51,13 @@ class StoreLoadRequest extends FormRequest
             'driver2_id.exists' => 'Driver does not exist.',
             'driver2_id.different' => 'Driver 2 field and Driver must be different.'
         ];
+    }
+
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'pickup_zip' => strtoupper($this->pickup_zip),
+            'dropoff_zip' => strtoupper($this->dropoff_zip),
+        ]);
     }
 }

@@ -24,12 +24,12 @@
                      }">
                     <div class="grid gap-2 sm:grid-cols-3 text-sm sm:text-md justify-items-center items-center">
                         <div class="text-center w-full">
-                            <p>{{ $load->pickup_address }} {{ $load->pickup_datetime->format('m/d/y H:i') }} -></p>
-                            <p>-> {{ $load->dropoff_address }} {{ $load->dropoff_datetime->format('m/d/y H:i') }}</p>
+                            <p>{{ $load->pickup_datetime->format('m/d/Y') }} -> {{ $load->dropoff_datetime->format('m/d/Y') }}</p>
+                            <p>{{ $load->pickup_state }} ({{ $load->pickup_city }}) -> {{ $load->dropoff_state }} ({{ $load->dropoff_city }})</p>
                         </div>
                         <div class="text-center w-full">
                             <p class="underline font-bold">{{ $load->dispatcher?->name }}</p>
-                            <p>$ {{ $load->actual_price }} / {{ $load->actual_distance }} mi
+                            <p>${{ $load->actual_price }} / {{ $load->actual_distance }} mi
                                 = {{ $load->pricePerMile() }} $pm</p>
                         </div>
                         <div class="grid sm:grid-cols-1 gap-2 text-center">

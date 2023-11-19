@@ -15,11 +15,11 @@
 
     <div class="grid grid-cols-2 gap-4">
         <div>
-            <x-input-label for="pickup_address" :value="__('Pickup ZIP')" />
-            <x-text-input id="pickup_address" name="pickup_address" type="text" class="mt-1 block w-full" required
-                          autofocus autocomplete="pickup_address"
-                          :value="old('pickup_address', $load->pickup_address)" />
-            <x-input-error class="mt-2" :messages="$errors->get('pickup_address')" />
+            <x-input-label for="pickup_zip" :value="__('Pickup ZIP')" />
+            <x-text-input id="pickup_zip" name="pickup_zip" type="text" class="mt-1 block w-full" required
+                          autofocus autocomplete="pickup_zip"
+                          :value="old('pickup_zip', $load->pickup_zip)" />
+            <x-input-error class="mt-2" :messages="$errors->get('pickup_zip')" />
         </div>
 
         <div>
@@ -33,11 +33,11 @@
 
     <div class="grid grid-cols-2 gap-4">
         <div>
-            <x-input-label for="dropoff_address" :value="__('Drop Off ZIP')" />
-            <x-text-input id="dropoff_address" name="dropoff_address" type="text" class="mt-1 block w-full" required
-                          autofocus autocomplete="dropoff_address"
-                          :value="old('dropoff_address', $load->dropoff_address)" />
-            <x-input-error class="mt-2" :messages="$errors->get('dropoff_address')" />
+            <x-input-label for="dropoff_zip" :value="__('Drop Off ZIP')" />
+            <x-text-input id="dropoff_zip" name="dropoff_zip" type="text" class="mt-1 block w-full" required
+                          autofocus autocomplete="dropoff_zip"
+                          :value="old('dropoff_zip', $load->dropoff_zip)" />
+            <x-input-error class="mt-2" :messages="$errors->get('dropoff_zip')" />
         </div>
 
         <div>

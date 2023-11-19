@@ -44,7 +44,7 @@ class Invoice {
         });
 
         total = Number(total) + Number(this.$customTotal.val());
-        generatedLog += this.getCustomWork() + '\nTOTAL: $ ' + total;
+        generatedLog += this.getCustomWork() + '\nTOTAL: $' + total;
 
         $generatedLog.val(generatedLog);
         this.$form.find('#pre_generated_log').text(generatedLog);

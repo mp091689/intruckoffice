@@ -20,10 +20,6 @@
             x-on:click.prevent="$dispatch('open-modal', 'confirm-deletion-{{md5($route)}}')"
     >{{ __('Delete') }}</x-danger-button>
 
-    @if($errors->count())
-        @dd($errors->deletion)
-    @endif
-
     <x-modal name="confirm-deletion-{{md5($route)}}" :show="$errors->deletion->isNotEmpty()" focusable>
         <form method="post" action="{{ $route }}" class="p-6">
             @csrf
