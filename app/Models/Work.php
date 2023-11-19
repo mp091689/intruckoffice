@@ -2,22 +2,10 @@
 
 namespace App\Models;
 
-use DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-
-/**
- * @property int $id
- * @property int $driver_id
- * @property int $load_id
- * @property WorkType $type
- * @property int $duration
- * @property int quota
- * @property DateTime $created_at
- * @property DateTime $updated_at
- */
 class Work extends Model
 {
     use HasFactory;
