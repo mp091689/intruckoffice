@@ -6,7 +6,7 @@ use App\Models\Load;
 use App\Models\LoadStatus;
 use Illuminate\Validation\Rule;
 
-class UpdateStatusLoadRequest extends StoreLoadRequest
+class LoadStatusRequest extends StoreLoadRequest
 {
     public function rules(): array
     {

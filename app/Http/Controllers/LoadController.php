@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoadStatusRequest;
 use App\Http\Requests\StoreLoadRequest;
 use App\Http\Requests\UpdateLoadRequest;
 use App\Models\Dispatcher;
 use App\Models\Driver;
 use App\Models\Load;
-use App\Models\LoadStatus;
 use App\Services\Address;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Str;
 
 class LoadController extends Controller
 {
@@ -54,7 +55,7 @@ class LoadController extends Controller
         if ($load->invoices()->count()) {
             return Redirect::route('loads.index')->with('flash', [
                 'status' => 'warning',
-                'text' => 'Load has posted invoices. Load can\'t be edited.' ,
+                'text' => 'Load has posted invoices. Load can\'t be edited.',
             ]);
         }
 
@@ -70,7 +71,7 @@ class LoadController extends Controller
         if ($load->invoices()->count()) {
             return Redirect::back()->with('flash', [
                 'status' => 'fail',
-                'text' => 'Load has posted invoices. Load can\'t be updated.' ,
+                'text' => 'Load has posted invoices. Load can\'t be updated.',
             ]);
         }
 
@@ -88,12 +89,25 @@ class LoadController extends Controller
         if ($load->works()->count()) {
             return Redirect::back()->with('flash', [
                 'status' => 'fail',
-                'text' => 'Load has related works. Load can\'t be deleted.' ,
+                'text' => 'Load has related works. Load can\'t be deleted.',
             ]);
         }
 
         $load->delete();
 
         return Redirect::route('loads.index')->with('flash', ['status' => 'success', 'text' => 'Load deleted.']);
+    }
+
+    public function quickStatusChange(LoadStatusRequest $request, Load $load): RedirectResponse
+    {
+        $load->fill($request->validated());
+        $load->save();
+
+        return Redirect::route('loads.index')
+            ->with('flash', [
+                'status' => 'success',
+                'text' => 'Load status changed to ' . Str::of($load->status->value)->snake()->replace('_',
+                        ' ')->title() . '.',
+            ]);
     }
 }

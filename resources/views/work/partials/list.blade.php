@@ -1,6 +1,6 @@
-<section class="border border-gray-600">
+<section class="border border-sky-700">
     @foreach($load->works as $work)
-        <div class="work grid grid-cols-5 justify-items-center items-center py-2 border-b border-gray-600 {{ $work->invoice ? 'bg-gray-700' : '' }}">
+        <div class="work grid sm:grid-cols-5 grid-cols-1 justify-items-center items-center py-2 border-b border-sky-700 {{ $work->invoice ? 'bg-sky-800' : '' }}">
             <a class="text-lg underline"
                href="{{ route('drivers.show', ['driver' => $work->driver]) }}">{{ $work->driver->fullName() }}
                 <span class="text-xs text-red-400">{{ $work->driver->uninvoicedWorks()->count() ? ' (' . $work->driver->uninvoicedWorks()->count() . ')' : '' }}</span></a>
