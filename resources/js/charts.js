@@ -22,13 +22,17 @@ function drawChart() {
 
     data.addColumn('number', 'Month');
     data.addColumn('number', 'Gross');
+    data.addColumn('number', '30%');
 
     let result = [];
     Object.entries(groupedLoads).forEach(([groupIdx, loads]) => {
         result[groupIdx] = [];
         result[groupIdx][0] = Number(groupIdx);
         result[groupIdx].push(loads.reduce((n, { actual_price }) => n + Number(actual_price), 0));
+        result[groupIdx].push(loads.reduce((n, { actual_price }) => n + Number(actual_price), 0)*0.3);
     });
+
+    console.log(result)
 
     let compactArray = [];
     for (var i in result) {
