@@ -11,12 +11,10 @@
                              href="tel:{{ $driver->phone }}">{{ $driver->phone }}</a></p>
                 <p>Email: <a class="font-bold text-lg underline" href="mailto:{{ $driver->email }}"
                              target="_blank">{{ $driver->email }}</a></p>
-                <p class="text-lg text-red-400">
+                <p class="text-lg text-red-400 flex items-center">
                     @if($driver->uninvoicedWorks()->count())
+                        <x-button-link class="mr-4" :href="route('drivers.invoices.create', [$driver])">Generate invoice</x-button-link>
                         {{ $driver->uninvoicedWorks()->count() }} univoiced works
-                        <x-button-link :href="route('drivers.invoices.create', [$driver])">Generate invoice</x-button-link>
-                    @else
-
                     @endif
                 </p>
             </div>
