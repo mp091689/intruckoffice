@@ -23,11 +23,13 @@ class InvoiceController extends Controller
         if ($request->get('driver')) {
             $driver = Driver::with('invoices')->find($request->get('driver'));
             $invoices = $driver->invoices->sortByDesc('number');
+        } elseif($request->get('number')) {
+            $invoices = Invoice::where('number', 'like', '%'.$request->get('number').'%')
+                ->orderByDesc('number')
+                ->get();
         } else {
             $invoices = Invoice::all()->sortByDesc('number');
-
         }
-
 
         return view('invoice.index', ['invoices' => $invoices, 'drivers' => $drivers]);
     }
