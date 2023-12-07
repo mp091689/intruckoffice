@@ -8,7 +8,6 @@ use App\Http\Requests\UpdateLoadRequest;
 use App\Models\Dispatcher;
 use App\Models\Driver;
 use App\Models\Load;
-use App\Services\Address;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
@@ -19,8 +18,9 @@ class LoadController extends Controller
     public function index(): View
     {
         $loads = Load::with('works')
+            ->with('zipCodes')
             ->get()
-            ->sortByDesc('pickup_datetime');
+            ->sortByDesc('id');
 
         return view('load.index', [
             'loads' => $loads,
@@ -36,16 +36,16 @@ class LoadController extends Controller
         ]);
     }
 
-    public function store(StoreLoadRequest $request, Address $address): RedirectResponse
+    public function store(StoreLoadRequest $request): RedirectResponse
     {
-        $load = new Load($request->validated());
+        $validated = $request->validated();
 
-        $load->fillAddresses($address);
-
+        $load = new Load($validated);
         $load->actual_price = $load->estimated_price;
         $load->actual_distance = $load->estimated_distance;
-
         $load->save();
+
+        $load->zipCodes()->createMany($validated['zipCodes'], $validated['zipCodes']);
 
         return Redirect::route('loads.index')->with('flash', ['status' => 'success', 'text' => 'Load created.']);
     }
@@ -66,7 +66,7 @@ class LoadController extends Controller
         ]);
     }
 
-    public function update(UpdateLoadRequest $request, Load $load, Address $address): RedirectResponse
+    public function update(UpdateLoadRequest $request, Load $load): RedirectResponse
     {
         if ($load->invoices()->count()) {
             return Redirect::back()->with('flash', [
@@ -75,9 +75,13 @@ class LoadController extends Controller
             ]);
         }
 
-        $load->fill($request->validated());
-        $load->fillAddresses($address);
+        $validated = $request->validated();
+
+        $load->fill($validated);
         $load->save();
+
+        $load->zipCodes()->detach();
+        $load->zipCodes()->createMany($validated['zipCodes'], $validated['zipCodes']);
 
         return Redirect::route('loads.index')
             ->withFragment('load-' . $load->id)
@@ -93,6 +97,7 @@ class LoadController extends Controller
             ]);
         }
 
+        $load->zipCodes()->detach();
         $load->delete();
 
         return Redirect::route('loads.index')->with('flash', ['status' => 'success', 'text' => 'Load deleted.']);
@@ -103,11 +108,12 @@ class LoadController extends Controller
         $load->fill($request->validated());
         $load->save();
 
+        $statusTitle = Str::of($load->status->value)->snake()->replace('_', ' ')->title();
+
         return Redirect::route('loads.index')
             ->with('flash', [
                 'status' => 'success',
-                'text' => 'Load status changed to ' . Str::of($load->status->value)->snake()->replace('_',
-                        ' ')->title() . '.',
+                'text' => 'Load status changed to ' . $statusTitle . '.',
             ]);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Services\Address;
+use App\Enums\LoadStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,11 +13,9 @@ class Load extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $guarded = ['zipCodes'];
 
     protected $casts = [
-        'pickup_datetime' => 'datetime',
-        'dropoff_datetime' => 'datetime',
         'status' => LoadStatus::class,
     ];
 
@@ -50,28 +48,26 @@ class Load extends Model
         )->distinct();
     }
 
-    /**
-     * @param  Address  $address
-     */
-    public function fillAddresses(Address $address): void
+    public function zipCodes(): BelongsToMany
     {
-        $pickupZipCode = $address->getZipCode($this->pickup_zip);
+        return $this->belongsToMany(ZipCode::class)
+            ->using(LoadZipCode::class)
+            ->withPivot('id', 'type', 'datetime')
+            ->orderByPivot('datetime');
+    }
 
-        $this->pickup_country = $pickupZipCode->country;
-        $this->pickup_state = $pickupZipCode->state;
-        $this->pickup_city = $pickupZipCode->city;
-        $this->pickup_lng = $pickupZipCode->lng;
-        $this->pickup_lat = $pickupZipCode->lat;
-
-        $deliveryZipCode = $pickupZipCode;
-        if ($this->pickup_zip !== $this->dropoff_zip) {
-            $deliveryZipCode = $address->getZipCode($this->dropoff_zip);
+    public function getFrontZipItems(): array
+    {
+        $zipItems = [];
+        foreach ($this->zipCodes as $zipCode) {
+            $zipItems[] = [
+                'zip' => $zipCode->zip,
+                'id' => $zipCode->pivot->id,
+                'type' => $zipCode->pivot->type->value,
+                'datetime' => $zipCode->pivot->datetime->format('Y-m-d\TH:i:s'),
+            ];
         }
 
-        $this->dropoff_country = $deliveryZipCode->country;
-        $this->dropoff_state = $deliveryZipCode->state;
-        $this->dropoff_city = $deliveryZipCode->city;
-        $this->dropoff_lng = $deliveryZipCode->lng;
-        $this->dropoff_lat = $deliveryZipCode->lat;
+        return $zipItems;
     }
 }

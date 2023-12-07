@@ -19,9 +19,12 @@ class DashboardController extends Controller
             }
         }
 
-        $months = Load::all()->groupBy(function ($row) {
-            return $row->pickup_datetime->format('W');
-        });
+        $months = Load::with('zipCodes')
+            ->has('zipCodes')
+            ->get()
+            ->groupBy(function (Load $load) {
+                return $load->zipCodes->first()->pivot->datetime->format('W');
+            });
 
         return view('dashboard', [
             'dispatchers' => Dispatcher::all()->sortBy('name'),
