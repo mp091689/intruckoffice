@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\WorkType;
+use App\Enums\WorkType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

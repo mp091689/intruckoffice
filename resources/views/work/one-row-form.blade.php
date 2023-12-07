@@ -14,7 +14,7 @@
     <div class="w-full sm:px-1 pr-2">
         <x-select name="type" class="w-full" required>
             <option value="" selected disabled>{{ __('Type') }}</option>
-            @foreach(\App\Models\WorkType::cases() as $type)
+            @foreach(\App\Enums\WorkType::cases() as $type)
                 <option value="{{ $type->value }}" {{ Request::get('type') == $type->value ? 'selected' : '' }}>{{ ucfirst($type->value) }}</option>
             @endforeach
         </x-select>
@@ -32,7 +32,7 @@
     <div class="relative w-full sm:pl-1 pr-2">
         <x-text-input class="w-full" name="quota" type="number" required placeholder="Quota" :value="30" />
     </div>
-    <x-primary-button>Add</x-primary-button>
+    <x-primary-button>{{ __('Add') }}</x-primary-button>
 </form>
 
 @vite('resources/js/work.js')

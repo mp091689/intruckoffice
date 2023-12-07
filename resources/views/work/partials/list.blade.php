@@ -7,7 +7,7 @@
             <div class="text-center items-center">{{ ucfirst($work->type->value) }}</div>
             <div class="text-center items-center">{{ $work->duration }} {{ $work->getDurationLabelName() }}</div>
             <div class="text-center items-center">
-                @if($work->type === \App\Models\WorkType::DELIVERY)
+                @if($work->type === \App\Enums\WorkType::DELIVERY)
                     {{ $work->quota }}% -
                 @endif ${{ $work->getQuota() }}</div>
             @if($work->invoice)

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\WorkType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -62,13 +63,19 @@ class Work extends Model
     public function getInvoiceTitle(): string
     {
         $type = ucfirst($this->type->value);
-        $puDate = $this->theLoad->pickup_datetime->format('m/d');
-        $doDate = $this->theLoad->dropoff_datetime->format('m/d');
+        $puDate = $this->theLoad->zipCodes->first()?->pivot->datetime->format('m/d') ?? $this->theLoad->created_at->format('m/d');
+        $doDate = $this->theLoad->zipCodes->last()?->pivot->datetime->format('m/d') ?? $this->theLoad->created_at->format('m/d');
+
+        $route = '';
+        foreach ($this->theLoad->zipCodes as $zipCode) {
+            $route .= $zipCode->state . '-';
+        }
+        $route = trim($route, '-');
 
         if ($this->type === WorkType::DELIVERY) {
-            return "$puDate-$doDate {$this->theLoad->pickup_state}-{$this->theLoad->dropoff_state} $type";
+            return "$puDate-$doDate $route $type";
         }
 
-        return "$puDate {$this->theLoad->pickup_state} $type";
+        return "$puDate $type";
     }
 }

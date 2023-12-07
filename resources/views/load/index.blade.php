@@ -24,10 +24,13 @@
                      }">
                     <div class="grid gap-2 sm:grid-cols-3 text-sm sm:text-md justify-items-center items-center">
                         <div class="text-center w-full">
-                            <p>{{ $load->pickup_datetime->format('m/d/Y') }}
-                                -> {{ $load->dropoff_datetime->format('m/d/Y') }}</p>
-                            <p>{{ $load->pickup_state }} ({{ $load->pickup_city }}) -> {{ $load->dropoff_state }}
-                                ({{ $load->dropoff_city }})</p>
+                            @foreach($load->zipCodes as $zipCode)
+                                <p>
+                                    {{ Str::title($zipCode->pivot->type->value) }}
+                                    {{ $zipCode->pivot->datetime->format('m/d') }}
+                                    {{ $zipCode->state }}
+                                </p>
+                            @endforeach
                         </div>
                         <div class="text-center w-full">
                             <p>{{ $load->dispatcher?->name }}</p>
@@ -42,7 +45,7 @@
                                 </div>
                             @else
                                 <div class="flex gap-2">
-                                    <x-button-link :href="route('loads.edit', ['load' => $load])">
+                                    <x-button-link :href="route('loads.edit', [$load])">
                                         {{  __('Edit') }}
                                     </x-button-link>
                                     @include('load.partials.quick-status-form', ['loadId' => $load->id])
