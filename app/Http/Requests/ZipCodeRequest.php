@@ -2,11 +2,12 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\WorkType;
+use App\Enums\ZipCodeType;
+use App\Services\ZipFinder;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreWorkRequest extends FormRequest
+class ZipCodeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +25,9 @@ class StoreWorkRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'load_id' => ['required', 'exists:loads,id'],
-            'driver_id' => ['required', 'exists:drivers,id'],
-            'type' => ['required', Rule::in(WorkType::values())],
-            'duration' => ['required', 'integer', 'max_digits:10'],
-            'quota' => ['required', 'integer', 'max:100', 'min:0'],
+            'zip' => ['required', 'regex:' . ZipFinder::REGEX_ZIP],
+            'type' => ['required', Rule::in(ZipCodeType::values())],
+            'datetime' => ['required', 'date'],
         ];
     }
 }

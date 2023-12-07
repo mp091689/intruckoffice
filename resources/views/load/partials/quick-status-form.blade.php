@@ -6,7 +6,7 @@
             name="status"
             x-on:change.prevent="$event.target.form.submit();"
     >
-        @foreach(\App\Models\LoadStatus::values() as $status)
+        @foreach(\App\Enums\LoadStatus::values() as $status)
             <option value="{{ $status }}" {{ old('status', $load->status?->value) == $status ? 'selected' : '' }}>{{ Str::of($status)->snake()->replace('_', ' ')->title() }}</option>
         @endforeach
     </x-select>

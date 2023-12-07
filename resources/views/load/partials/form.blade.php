@@ -13,41 +13,7 @@
         <x-input-error class="mt-2" :messages="$errors->get('dispatcher_id')" />
     </div>
 
-    <div class="grid grid-cols-2 gap-4">
-        <div>
-            <x-input-label for="pickup_zip" :value="__('Pickup ZIP')" />
-            <x-text-input id="pickup_zip" name="pickup_zip" type="text" class="mt-1 block w-full" required
-                          autofocus autocomplete="pickup_zip"
-                          :value="old('pickup_zip', $load->pickup_zip)" />
-            <x-input-error class="mt-2" :messages="$errors->get('pickup_zip')" />
-        </div>
-
-        <div>
-            <x-input-label for="pickup_datetime" :value="__('Pickup Date Time')" />
-            <x-text-input id="pickup_datetime" name="pickup_datetime" type="datetime-local" class="mt-1 block w-full"
-                          required autofocus autocomplete="pickup_datetime"
-                          :value="old('pickup_datetime', $load->pickup_datetime ?? now()->startOfDay()->addHours(8))" />
-            <x-input-error class="mt-2" :messages="$errors->get('pickup_datetime')" />
-        </div>
-    </div>
-
-    <div class="grid grid-cols-2 gap-4">
-        <div>
-            <x-input-label for="dropoff_zip" :value="__('Drop Off ZIP')" />
-            <x-text-input id="dropoff_zip" name="dropoff_zip" type="text" class="mt-1 block w-full" required
-                          autofocus autocomplete="dropoff_zip"
-                          :value="old('dropoff_zip', $load->dropoff_zip)" />
-            <x-input-error class="mt-2" :messages="$errors->get('dropoff_zip')" />
-        </div>
-
-        <div>
-            <x-input-label for="dropoff_datetime" :value="__('Drop Off Date Time')" />
-            <x-text-input id="dropoff_datetime" name="dropoff_datetime" type="datetime-local" class="mt-1 block w-full"
-                          required autofocus autocomplete="dropoff_datetime"
-                          :value="old('dropoff_datetime', $load->dropoff_datetime ?? now()->startOfDay()->addDay()->addHours(8))" />
-            <x-input-error class="mt-2" :messages="$errors->get('dropoff_datetime')" />
-        </div>
-    </div>
+    @include('zip-code.dynamic-form')
 
     <div class="grid grid-cols-2 gap-4">
         <div>
@@ -96,7 +62,7 @@
     <div>
         <x-input-label for="status" :value="__('Status')" />
         <x-select id="status" name="status" class="mt-1 block w-full">
-            @foreach(\App\Models\LoadStatus::values() as $status)
+            @foreach(\App\Enums\LoadStatus::values() as $status)
                 <option value="{{ $status }}" {{ old('status', $load->status?->value) == $status ? 'selected' : '' }}>{{ Str::of($status)->snake()->replace('_', ' ')->title() }}</option>
             @endforeach
         </x-select>

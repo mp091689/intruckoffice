@@ -2,8 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Load;
-use App\Models\LoadStatus;
+use App\Enums\LoadStatus;
 use Illuminate\Validation\Rule;
 
 class LoadStatusRequest extends StoreLoadRequest
