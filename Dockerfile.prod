@@ -36,3 +36,4 @@ RUN php artisan optimize
 
 RUN php artisan config:clear
 
+RUN chown -R application:application .
