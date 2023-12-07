@@ -35,3 +35,4 @@ RUN --mount=type=secret,id=APP_KEY \
 RUN php artisan optimize
 
 RUN php artisan config:clear
+
